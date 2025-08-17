@@ -1,0 +1,12 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-cookie: var(--font-cookie);
+  --font-playfairlight: var(--font-playfairlight);
+  --font-playfairregular: var(--font-playfairregular);
+  --font-playfairmedium: var(--font-playfairmedium);
+  --font-playfairsemibold: var(--font-playfairsemibold);
+  --font-playfairbold: var(--font-playfairbold);
+  --font-playfairextrabold: var(--font-playfairextrabold);
+  --font-playfairblack: var(--font-playfairblack);
+}
