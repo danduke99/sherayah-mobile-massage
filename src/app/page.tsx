@@ -1,8 +1,10 @@
-'use client'
-import { motion } from 'framer-motion'
-import Link from 'next/link'
-import { cookie, playfairBold, playfairMedium, playfairRegular } from './styles/font/page'
-import { services } from './components/map'
+/* eslint-disable @next/next/no-img-element */
+"use client";
+import { motion } from "framer-motion";
+import Link from "next/link";
+import { cookie, playfairBold, playfairRegular } from "./styles/font/page";
+import { services } from "./components/map";
+import Carousel from "./components/Carousel";
 
 const title = "Welcome to Sherayah's";
 const title2 = "Mobile Body Massage";
@@ -14,13 +16,18 @@ export default function Home() {
   const titleLettersLg = titleLg.split("");
 
   return (
-    <main className='flex flex-col'>
+    <main className="flex flex-col">
       <div className="relative text-center h-96 lg:h-[500px] overflow-hidden flex flex-col items-center justify-center">
         <motion.div
           className="absolute inset-0 bg-cover bg-center scale-100 bg-[url(/images/massage2.jpg)]"
           initial={{ scale: 1 }}
-          animate={{ scale: 1.10 }}
-          transition={{ duration: 10, ease: 'easeInOut', repeat: Infinity, repeatType: 'reverse' }}
+          animate={{ scale: 1.1 }}
+          transition={{
+            duration: 10,
+            ease: "easeInOut",
+            repeat: Infinity,
+            repeatType: "reverse",
+          }}
         />
 
         <div className="z-10">
@@ -113,21 +120,28 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.6 }}
           >
-            Rejuvenate your body and mind with professional massage therapy in a calming space.
+            Rejuvenate your body and mind with professional massage therapy in a
+            calming space.
           </motion.p>
 
           {/* CTA Button */}
-          <Link href="/contact" className='lg:mt-10'>
+          <Link href="/contact" className="lg:mt-10">
             <motion.button
               className={`bg-[#405d3f] text-white text-lg px-8 py-2 lg:py-3 lg:px-16 lg:text-xl rounded-full mt-4 lg:mt-8 hover:bg-[#2e4c2d] transition ${playfairBold.className} block mx-auto`}
               initial={{ scale: 0.5, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
-              transition={{ duration: 1, delay: 1.2, type: 'spring', stiffness: 10, damping: 10 }}
+              transition={{
+                duration: 1,
+                delay: 1.2,
+                type: "spring",
+                stiffness: 10,
+                damping: 10,
+              }}
               whileHover={{
                 x: [0, -15, 15, -15, 15, 0],
                 y: [0, -15, 15, -15, 15, 0],
                 transition: { duration: 0.5 },
-                cursor: 'pointer',
+                cursor: "pointer",
               }}
             >
               Book Now
@@ -138,8 +152,16 @@ export default function Home() {
 
       <div className="relative bg-[#bee5d7] flex flex-col items-center justify-center overflow-hidden">
         {/* Decorative Images */}
-        <img src="/images/orchid.png" alt="Orchid Right" className="absolute -top-24 right-4 sm:right-10 h-[24rem] rotate-[30deg] object-cover z-10 opacity-90 pointer-events-none select-none" />
-        <img src="/images/snake.png" alt="Snake Plant Left" className="absolute bottom-0 left-4 sm:left-10 h-[24rem] object-cover z-10 opacity-90 pointer-events-none select-none" />
+        <img
+          src="/images/orchid.png"
+          alt="Orchid Right"
+          className="absolute -top-24 right-4 sm:right-10 h-[24rem] rotate-[30deg] object-cover z-10 opacity-90 pointer-events-none select-none"
+        />
+        <img
+          src="/images/snake.png"
+          alt="Snake Plant Left"
+          className="absolute bottom-0 left-4 sm:left-10 h-[24rem] object-cover z-10 opacity-90 pointer-events-none select-none"
+        />
 
         {/* Top and bottom gradients */}
         <div className="absolute top-0 left-0 right-0 h-56 bg-gradient-to-b from-[#8cb692] to-transparent z-20 pointer-events-none" />
@@ -181,8 +203,14 @@ export default function Home() {
               />
               <g id="SVGRepo_iconCarrier">
                 {" "}
-                <title>leaf [#15]</title> <desc>Created with Sketch.</desc> <defs> </defs>{" "}
-                <g id="Page-1" strokeWidth="0.0002" fill="none" fillRule="evenodd">
+                <title>leaf [#15]</title> <desc>Created with Sketch.</desc>{" "}
+                <defs> </defs>{" "}
+                <g
+                  id="Page-1"
+                  strokeWidth="0.0002"
+                  fill="none"
+                  fillRule="evenodd"
+                >
                   {" "}
                   <g
                     id="Dribbble-Light-Preview"
@@ -204,7 +232,9 @@ export default function Home() {
               </g>
             </svg>
 
-            <div className={`text-[76px] text-[#2c3e50] ${cookie.className}`}>Our Services</div>
+            <div className={`text-[76px] text-[#2c3e50] ${cookie.className}`}>
+              Our Services
+            </div>
           </div>
 
           {/* Services Grid */}
@@ -215,7 +245,8 @@ export default function Home() {
                 className="flex flex-row lg:flex-col rounded-lg bg-white text-surface shadow-lg text-black h-36 lg:h-auto w-full lg:flex-[1_1_30%]"
               >
                 {/* Image */}
-                <div className="w-36 h-36 lg:w-full lg:h-52 flex-shrink-0 
+                <div
+                  className="w-36 h-36 lg:w-full lg:h-52 flex-shrink-0 
                 rounded-l-lg rounded-bl-lg rounded-t-none rounded-r-none rounded-b-none 
                 lg:rounded-l-none lg:rounded-t-lg lg:rounded-tr-lg lg:rounded-tl-lg overflow-hidden"
                 >
@@ -226,13 +257,16 @@ export default function Home() {
                   />
                 </div>
 
-
                 {/* Text Content */}
                 <div className="flex flex-col justify-center lg:justify-start p-4">
-                  <h3 className={`text-xl font-semibold ${playfairBold.className}`}>
+                  <h3
+                    className={`text-xl font-semibold ${playfairBold.className}`}
+                  >
                     {service.title}
                   </h3>
-                  <p className={`mt-2 text-md text-gray-600 ${playfairRegular.className}`}>
+                  <p
+                    className={`mt-2 text-md text-gray-600 ${playfairRegular.className}`}
+                  >
                     {service.description}
                   </p>
                 </div>
@@ -240,6 +274,32 @@ export default function Home() {
             ))}
           </div>
         </div>
+      </div>
+
+      <div className="px-4 sm:px-6 lg:px-12 py-4 border-b border-amber-600">
+        {/* Header */}
+        <div className="mb-6 text-center sm:text-left">
+          <h2 className="text-2xl sm:text-3xl font-bold text-gray-800">
+            Gallery
+          </h2>
+          <p className="mt-2 text-gray-600 text-sm sm:text-base max-w-2xl mx-auto sm:mx-0">
+            Explore our collection of images and videos showcasing our latest
+            projects and highlights.
+          </p>
+        </div>
+
+        {/* Carousel */}
+        <div className="w-full">
+          <Carousel />
+        </div>
+
+        {/* Optional captions or description under carousel */}
+        <div className="mt-1 text-center sm:text-left">
+          <p className="text-gray-500 text-sm sm:text-base">
+            Swipe or click the arrows to navigate through the gallery.
+          </p>
+        </div>
+
       </div>
 
       <div className="relative flex flex-col w-full h-auto z-10 p-4 lg:flex-row">
@@ -261,9 +321,18 @@ export default function Home() {
 
         {/* Right Column: 60% on lg */}
         <div className="w-full lg:w-[60%] bg-white flex flex-col justify-center items-center text-center lg:text-left lg:items-start z-20 lg:mx-5">
-          <p className={`text-[#2c3e50] ${cookie.className} text-[60px] lg:text-[80px] text-start`}>Who Are We?</p>
-          <p className={`max-w-2xl text-gray-700 text-md mb-3 lg:max-w-3xl ${playfairRegular.className}`}>
-            We are a new mobile massage parlor bringing relaxation and rejuvenation directly to your doorstep. Whether you're at home or at work, our professionalism creates a calming experience wherever you are.
+          <p
+            className={`text-[#2c3e50] ${cookie.className} text-[60px] lg:text-[80px] text-start`}
+          >
+            Who Are We?
+          </p>
+          <p
+            className={`max-w-2xl text-gray-700 text-md mb-3 lg:max-w-3xl ${playfairRegular.className}`}
+          >
+            We are a new mobile massage parlor bringing relaxation and
+            rejuvenation directly to your doorstep. Whether you&apos;re at home
+            or at work, our professionalism creates a calming experience
+            wherever you are.
           </p>
           <Link href="/about" className="w-fit">
             <button
@@ -275,5 +344,5 @@ export default function Home() {
         </div>
       </div>
     </main>
-  )
+  );
 }

@@ -1,4 +1,5 @@
-import { cookie, playfairBold, playfairRegular, playfairSemiBold } from "../styles/font/page"
+/* eslint-disable @next/next/no-img-element */
+import { cookie, playfairBold, playfairRegular } from "../styles/font/page";
 import { services, teamMembers } from "../components/map";
 
 export default function About() {
@@ -13,7 +14,9 @@ export default function About() {
           className="absolute inset-0 w-full h-full object-cover object-right z-0"
         />
         <div className="relative z-10 flex flex-col justify-center items-center h-full text-white bg-black/30 px-4">
-          <h1 className={`text-5xl sm:text-6xl md:text-7xl lg:text-8xl ${cookie.className} leading-tight text-center`}>
+          <h1
+            className={`text-5xl sm:text-6xl md:text-7xl lg:text-8xl ${cookie.className} leading-tight text-center`}
+          >
             About Us
           </h1>
         </div>
@@ -23,29 +26,56 @@ export default function About() {
       <div className="relative grid grid-cols-1 sm:grid-cols-[40%_60%] h-auto lg:h-[550px] overflow-visible px-6 sm:px-10 py-6 gap-8">
         <div className="w-full flex justify-center items-start relative -mb-20 z-10">
           <div className="relative ">
-            <img src="/images/leaf2.png" alt="Background" className=" absolute w-40 sm:w-52 lg:w-48 xl:w-72 -rotate-[45deg] sm:-rotate-[30deg] lg:-rotate-[45deg] xl:-rotate-[35deg]
-            opacity-70 z-10 object-cover mt-18 bottom-15 sm:-bottom-1 lg:-bottom-20 xl:-bottom-10 -left-10 sm:-left-13 lg:-left-10 xl:-left-15" />
-            <img src="/images/portrait.png" alt="Foreground" className="relative z-20 left-13 bottom-18 sm:left-10 sm:-bottom-1 h-[300px] w-[300px] object-cover lg:-bottom-[126px] xl:-bottom-[26px] xl:left-20 lg:h-[400px] lg:w-[350px] xl:h-[500px] xl:w-full" />
+            <img
+              src="/images/leaf2.png"
+              alt="Background"
+              className=" absolute w-40 sm:w-52 lg:w-48 xl:w-72 -rotate-[45deg] sm:-rotate-[30deg] lg:-rotate-[45deg] xl:-rotate-[35deg]
+            opacity-70 z-10 object-cover mt-18 bottom-15 sm:-bottom-1 lg:-bottom-20 xl:-bottom-10 -left-10 sm:-left-13 lg:-left-10 xl:-left-15"
+            />
+            <img
+              src="/images/portrait.png"
+              alt="Foreground"
+              className="relative z-20 left-13 bottom-18 sm:left-10 sm:-bottom-1 h-[300px] w-[300px] object-cover lg:-bottom-[126px] xl:-bottom-[26px] xl:left-20 lg:h-[400px] lg:w-[350px] xl:h-[500px] xl:w-full"
+            />
           </div>
         </div>
 
         {/* Text content */}
         <div className="flex flex-col justify-center px-2 sm:px-6 overflow-hidden h-full">
-          <p className={`text-[#2c3e50] ${cookie.className} text-5xl lg:text-7xl xl:text-8xl mb-2 lg:mb-0 w-full text-center lg:text-left`}>
+          <p
+            className={`text-[#2c3e50] ${cookie.className} text-5xl lg:text-7xl xl:text-8xl mb-2 lg:mb-0 w-full text-center lg:text-left`}
+          >
             Who am I?
           </p>
 
           <div className="flex flex-col">
-            <p className={`text-base sm:text-xs lg:text-lg xl:text-xl text-left z-30 relative text-[#405d3f] mb-3 ${playfairRegular.className}`}>
-              "I'm a passionate massage therapist dedicated to helping people feel their best—wherever they are. With Serenity Touch, I bring a calm, rejuvenating experience straight to your doorstep. My mission is to create moments of peace in your day through thoughtful, personalized care.
+            <p
+              className={`text-base sm:text-xs lg:text-lg xl:text-xl text-left z-30 relative text-[#405d3f] mb-3 ${playfairRegular.className}`}
+            >
+              &quot;I&apos;m a passionate massage therapist dedicated to helping
+              people feel their best—wherever they are. With Serenity Touch, I
+              bring a calm, rejuvenating experience straight to your doorstep.
+              My mission is to create moments of peace in your day through
+              thoughtful, personalized care.
             </p>
-            <p className={`text-base sm:text-xs lg:text-lg xl:text-xl text-left z-30 relative text-[#405d3f] mb-3 ${playfairRegular.className}`}>
-              Whether you're recovering from stress, managing pain, or simply in need of deep relaxation, each session is tailored to meet your unique needs. I believe in the power of healing through touch and the importance of self-care as part of a balanced lifestyle.
+            <p
+              className={`text-base sm:text-xs lg:text-lg xl:text-xl text-left z-30 relative text-[#405d3f] mb-3 ${playfairRegular.className}`}
+            >
+              Whether you&apos;re recovering from stress, managing pain, or
+              simply in need of deep relaxation, each session is tailored to
+              meet your unique needs. I believe in the power of healing through
+              touch and the importance of self-care as part of a balanced
+              lifestyle.
             </p>
-            <p className={`text-base sm:text-xs lg:text-lg xl:text-xl text-left z-30 relative text-[#405d3f] mb-3 ${playfairRegular.className}`}>
-              Let Serenity Touch be your space to pause, breathe, and reconnect — <a className="font-semibold">with yourself.</a>"
+            <p
+              className={`text-base sm:text-xs lg:text-lg xl:text-xl text-left z-30 relative text-[#405d3f] mb-3 ${playfairRegular.className}`}
+            >
+              Let Serenity Touch be your space to pause, breathe, and reconnect
+              — <a className="font-semibold">with yourself.</a>&quot;
             </p>
-            <p className={`text-base sm:text-xs lg:text-lg xl:text-xl text-left z-30 relative text-[#405d3f] mb-3 ${playfairBold.className}`}>
+            <p
+              className={`text-base sm:text-xs lg:text-lg xl:text-xl text-left z-30 relative text-[#405d3f] mb-3 ${playfairBold.className}`}
+            >
               Jane Doe - Masseuse
             </p>
           </div>
@@ -73,13 +103,14 @@ export default function About() {
             <div className="grid grid-cols-2 lg:grid-cols-3 gap-y-8 gap-x-8 sm:gap-x-12 sm:px-8">
               {teamMembers.map((member, index) => {
                 const isLastOdd =
-                  teamMembers.length % 2 !== 0 && index === teamMembers.length - 1;
+                  teamMembers.length % 2 !== 0 &&
+                  index === teamMembers.length - 1;
                 return (
                   <div
                     key={index}
                     className={`
             flex flex-col justify-center items-center w-40 sm:w-48 md:w-56 group
-            ${isLastOdd ? 'col-span-2 lg:col-span-1 lg:justify-self-auto justify-self-center' : ''}
+            ${isLastOdd ? "col-span-2 lg:col-span-1 lg:justify-self-auto justify-self-center" : ""}
           `}
                   >
                     <div className="relative rounded-full overflow-hidden w-24 h-24 sm:w-48 sm:h-48 md:w-56 md:h-56 lg:h-50 lg:w-50">
@@ -91,7 +122,9 @@ export default function About() {
                       <div className="absolute inset-0 bg-[#405d3f] opacity-0 group-hover:opacity-30 transition-opacity duration-300 rounded-full" />
                     </div>
                     <div className="mt-4 flex flex-col justify-center items-center text-center">
-                      <div className={`text-lg sm:text-xl md:text-2xl ${playfairBold.className}`}>
+                      <div
+                        className={`text-lg sm:text-xl md:text-2xl ${playfairBold.className}`}
+                      >
                         {member.name}
                       </div>
                       <div className="text-xs sm:text-sm md:text-base text-[#405d3f]">
@@ -109,16 +142,18 @@ export default function About() {
       {/* Services Section */}
       <div className="bg-[#8cb692] px-6 sm:px-10 py-6 z-10">
         <div className="flex justify-center items-center mb-5 lg:mb-0">
-          <h2 className={`${cookie.className} text-center text-5xl sm:text-6xl md:text-[70px] text-[#2c3e50]`}>
+          <h2
+            className={`${cookie.className} text-center text-5xl sm:text-6xl md:text-[70px] text-[#2c3e50]`}
+          >
             Our Services
           </h2>
         </div>
-        <div className="max-h-[700px] overflow-y-auto lg:overflow-y-visible lg:max-h-[800px] xl:max-h-[700px]">
-          <div className="grid grid-cols-1 sm:grid-cols-3">
+        <div className="max-h-[700px] overflow-y-auto lg:overflow-y-visible lg:max-h-[800px] xl:max-h-[700px] md:mb-5">
+          <div className="grid grid-cols-1 sm:grid-cols-3 md:mb-2">
             {[0, 1, 2].map((col) => (
               <div
                 key={col}
-                className="flex flex-col gap-8 justify-center items-center h-full mt-1"
+                className="flex flex-col gap-8 justify-center items-center h-full mt-5 sm:mt-3 sm:px-4"
               >
                 {services.slice(col * 3, col * 3 + 3).map((service, index) => (
                   <div
@@ -152,5 +187,5 @@ export default function About() {
         </div>
       </div>
     </main>
-  )
+  );
 }

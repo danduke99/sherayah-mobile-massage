@@ -82,3 +82,47 @@ export const teamMembers = [
     image: "/images/headshot3.jpg",
   },
 ];
+
+export type CarouselItem = {
+  id: number;
+  type: "image" | "video";
+  src: string;
+  alt?: string; // optional for videos
+};
+
+export const carouselImages: CarouselItem[] = [
+  {
+    id: 1,
+    type: "image",
+    src: "/images/1.jpeg",
+    alt: "Picture 1",
+  },
+  {
+    id: 2,
+    type: "video",
+    src: "/images/1.mp4",
+  },
+  {
+    id: 3,
+    type: "image",
+    src: "/images/2.jpeg",
+    alt: "Picture 2",
+  },
+  {
+    id: 4,
+    type: "image",
+    src: "/images/1.jpeg",
+    alt: "Picture 1",
+  },
+  {
+    id: 5,
+    type: "video",
+    src: "/images/1.mp4",
+  },
+  {
+    id: 6,
+    type: "image",
+    src: "/images/2.jpeg",
+    alt: "Picture 2",
+  },
+];

@@ -1,6 +1,7 @@
+/* eslint-disable @next/next/no-img-element */
 'use client'
 import Link from 'next/link'
-import { MapPinIcon, PhoneIcon, CalendarIcon } from '@heroicons/react/24/solid'
+import { MapPinIcon, PhoneIcon } from '@heroicons/react/24/solid'
 import { useEffect, useState } from 'react'
 import { playfairBold, playfairRegular, playfairSemiBold } from '../styles/font/page'
 
