@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { CarouselItem } from "./map";
 
@@ -14,11 +14,17 @@ export default function Carousel({ items, rounded = "rounded-3xl" }: CarouselPro
   const [itemsPerSlide, setItemsPerSlide] = useState(1);
   const [containerWidth, setContainerWidth] = useState(0);
 
-  const containerRef = useEffect(() => {
+  // Use useRef for the container
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
     const updateItemsPerSlide = () => {
       if (window.innerWidth >= 1024) setItemsPerSlide(3);
       else setItemsPerSlide(1);
-      setContainerWidth(window.innerWidth);
+
+      if (containerRef.current) {
+        setContainerWidth(containerRef.current.offsetWidth);
+      }
     };
 
     updateItemsPerSlide();
@@ -51,14 +57,12 @@ export default function Carousel({ items, rounded = "rounded-3xl" }: CarouselPro
   );
 
   return (
-    <div className="relative w-full max-w-6xl mx-auto mt-4" ref={containerRef as any}>
-      <div
-        className={`overflow-hidden ${rounded} w-full relative flex justify-center items-center`}
-      >
+    <div className="relative w-full max-w-6xl mx-auto mt-4" ref={containerRef}>
+      <div className={`overflow-hidden ${rounded} w-full relative flex justify-center items-center`}>
         <AnimatePresence initial={false} custom={direction}>
           <motion.div
             key={currentIndex}
-            className="flex w-fit justify-center gap-4"
+            className="absolute top-0 left-0 flex w-full justify-center gap-4"
             custom={direction}
             variants={variants}
             initial="enter"
@@ -109,8 +113,8 @@ export default function Carousel({ items, rounded = "rounded-3xl" }: CarouselPro
         {Array.from({ length: totalSlides }).map((_, idx) => (
           <span
             key={idx}
-            className={`h-2 w-3 rounded-full cursor-pointer transition ${idx === currentIndex ? "bg-[#2e4c2d]" : "bg-[#8cb692]"}`
-            }
+            className={`h-2 w-3 rounded-full cursor-pointer transition ${idx === currentIndex ? "bg-[#2e4c2d]" : "bg-[#8cb692]"
+              }`}
             onClick={() => setCurrentIndex([idx, idx > currentIndex ? 1 : -1])}
           />
         ))}

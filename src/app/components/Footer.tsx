@@ -1,6 +1,5 @@
 import Link from 'next/link'
 import {
-  MapPinIcon,
   PhoneIcon,
   EnvelopeIcon,
 } from '@heroicons/react/24/solid'
@@ -20,7 +19,7 @@ export default function Footer() {
         <div className="flex justify-center items-center">
           <div className="flex flex-col items-center text-center">
             <p className={`text-5xl ${cookie.className} text-[#e7d882]`}>
-              Sherayah's
+              Sherayah&apos;s
             </p>
             <p className={`text-xl ${playfairRegular.className} text-white`}>
               Mobile Body Massage
