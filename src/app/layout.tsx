@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-import { cookie } from "./styles/font/page";
+import { cookie } from "./styles/font/fonts";
 
 export const metadata: Metadata = {
   title: "Sherayah's Mobile Body Massage",

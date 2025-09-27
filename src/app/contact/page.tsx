@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import Link from 'next/link';
-import { cookie } from '../styles/font/page';
+import { cookie } from '../styles/font/fonts';
 
 export default function Contact() {
   const [form, setForm] = useState({ name: '', email: '', message: '' });

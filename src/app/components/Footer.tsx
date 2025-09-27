@@ -8,7 +8,7 @@ import {
   playfairMedium,
   playfairRegular,
   playfairSemiBold,
-} from '../styles/font/page'
+} from '../styles/font/fonts'
 
 export default function Footer() {
   return (

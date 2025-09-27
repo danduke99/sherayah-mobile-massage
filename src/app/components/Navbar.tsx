@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { MapPinIcon, PhoneIcon } from '@heroicons/react/24/solid'
 import { useEffect, useState } from 'react'
-import { playfairBold, playfairRegular, playfairSemiBold } from '../styles/font/page'
+import { playfairBold, playfairRegular, playfairSemiBold } from '../styles/font/fonts'
 
 export default function Navbar() {
   const [showStickyLogo, setShowStickyLogo] = useState(false)

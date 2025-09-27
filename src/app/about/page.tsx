@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import { cookie, playfairBold, playfairRegular } from "../styles/font/page";
+import { cookie, playfairBold, playfairRegular } from "../styles/font/fonts";
 import { services, teamMembers } from "../components/map";
 
 export default function About() {

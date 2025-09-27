@@ -2,7 +2,7 @@
 "use client";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { cookie, playfairBold, playfairRegular } from "./styles/font/page";
+import { cookie, playfairBold, playfairRegular } from "./styles/font/fonts";
 import { services, carouselImages } from "./components/map";
 import Carousel from "./components/Carousel";
 
