@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { cookie, playfairBold, playfairRegular } from "./styles/font/page";
-import { services } from "./components/map";
+import { services, carouselImages } from "./components/map";
 import Carousel from "./components/Carousel";
 
 const title = "Welcome to Sherayah's";
@@ -276,30 +276,27 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="px-4 sm:px-6 lg:px-12 py-4 border-b border-amber-600">
+      <div className="px-4 sm:px-6 lg:px-12 pt-6">
         {/* Header */}
-        <div className="mb-6 text-center sm:text-left">
-          <h2 className="text-2xl sm:text-3xl font-bold text-gray-800">
+        <div className="mb-6 text-center">
+          <h2 className={`text-2xl sm:text-3xl font-bold text-gray-800 ${playfairBold.className}`}>
             Gallery
           </h2>
-          <p className="mt-2 text-gray-600 text-sm sm:text-base max-w-2xl mx-auto sm:mx-0">
+          <p className={`mt-2 text-gray-600 text-sm sm:text-base sm:mx-0 ${playfairRegular.className}`}>
             Explore our collection of images and videos showcasing our latest
             projects and highlights.
           </p>
         </div>
-
-        {/* Carousel */}
-        <div className="w-full">
-          <Carousel />
-        </div>
+        <Carousel items={carouselImages} />
 
         {/* Optional captions or description under carousel */}
-        <div className="mt-1 text-center sm:text-left">
-          <p className="text-gray-500 text-sm sm:text-base">
+        <div className="mt-2 text-center">
+          <p className={`text-gray-500 text-sm sm:text-base ${playfairRegular.className}`}>
             Swipe or click the arrows to navigate through the gallery.
           </p>
         </div>
 
+        <div className="border-b-2 border-gray-200 mt-10 mx-6 sm:mx-24"></div>
       </div>
 
       <div className="relative flex flex-col w-full h-auto z-10 p-4 lg:flex-row">

@@ -1,4 +1,4 @@
-// File: C:\Users\User\Documents\Work\sherayah-mobile-massage-1\src\app\layout.tsx
+// File: C:\Users\Deela\OneDrive\Documents\Work\sherayah-mobile-massage\src\app\layout.tsx
 import * as entry from '../../../src/app/layout.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

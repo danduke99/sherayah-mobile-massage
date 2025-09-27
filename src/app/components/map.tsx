@@ -110,19 +110,19 @@ export const carouselImages: CarouselItem[] = [
   },
   {
     id: 4,
-    type: "image",
-    src: "/images/1.jpeg",
+    type: "video",
+    src: "/images/work.mp4",
     alt: "Picture 1",
   },
   {
     id: 5,
     type: "video",
-    src: "/images/1.mp4",
+    src: "/images/work2.mp4",
   },
   {
     id: 6,
     type: "image",
-    src: "/images/2.jpeg",
+    src: "/images/wit2.jpeg",
     alt: "Picture 2",
   },
 ];
