@@ -91,38 +91,21 @@ export type CarouselItem = {
 };
 
 export const carouselImages: CarouselItem[] = [
-  {
-    id: 1,
-    type: "image",
-    src: "/images/1.jpeg",
-    alt: "Picture 1",
-  },
-  {
-    id: 2,
-    type: "video",
-    src: "/images/1.mp4",
-  },
-  {
-    id: 3,
-    type: "image",
-    src: "/images/2.jpeg",
-    alt: "Picture 2",
-  },
-  {
-    id: 4,
-    type: "video",
-    src: "/images/work.mp4",
-    alt: "Picture 1",
-  },
-  {
-    id: 5,
-    type: "video",
-    src: "/images/work2.mp4",
-  },
-  {
-    id: 6,
-    type: "image",
-    src: "/images/wit2.jpeg",
-    alt: "Picture 2",
-  },
+  { id: 1,  type: "image", src: "/images/1.jpeg" },
+  { id: 2,  type: "video", src: "/images/1.mp4" },
+  { id: 3,  type: "image", src: "/images/2.jpeg" },
+  { id: 4,  type: "image", src: "/images/anni.jpeg" },
+  { id: 5, type: "image", src: "/images/beach.jpeg" },
+  { id: 6, type: "image", src: "/images/beachW.jpeg" },
+  { id: 7, type: "image", src: "/images/belairMassage.jpeg" },
+  { id: 8, type: "video", src: "/images/belVid.mp4" },
+  { id: 9, type: "image", src: "/images/coup.jpeg" },
+  { id: 10, type: "image", src: "/images/couple.jpeg" },
+  { id: 11, type: "video", src: "/images/home.mp4" },
+  { id: 12, type: "video", src: "/images/loc.mp4" },
+  { id: 13, type: "image", src: "/images/peggyOT.jpeg" },
+  { id: 14, type: "image", src: "/images/wit.jpeg" },
+  { id: 15, type: "image", src: "/images/wit2.jpeg" },
+  { id: 16, type: "video", src: "/images/work.mp4" },
+  { id: 17, type: "video", src: "/images/work2.mp4" },
 ];
