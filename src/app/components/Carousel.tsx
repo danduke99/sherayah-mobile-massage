@@ -43,19 +43,19 @@ export default function Carousel({ items, rounded = "rounded-3xl" }: CarouselPro
     setCurrentIndex([(currentIndex + 1) % totalSlides, 1]);
 
   const variants: Variants = {
-  enter: (dir: number) => ({
-    x: dir > 0 ? containerWidth : -containerWidth,
-    transition: { duration: 0.45, ease: [0.0, 0.0, 1.0, 1.0] as [number, number, number, number] }
-  }),
-  center: {
-    x: 0,
-    transition: { duration: 0.45, ease: [0.0, 0.0, 1.0, 1.0] as [number, number, number, number] }
-  },
-  exit: (dir: number) => ({
-    x: dir > 0 ? -containerWidth : containerWidth,
-    transition: { duration: 0.45, ease: [0.0, 0.0, 1.0, 1.0] as [number, number, number, number] }
-  })
-};
+    enter: (dir: number) => ({
+      x: dir > 0 ? containerWidth : -containerWidth,
+      transition: { duration: 0.45, ease: [0.0, 0.0, 1.0, 1.0] as [number, number, number, number] }
+    }),
+    center: {
+      x: 0,
+      transition: { duration: 0.45, ease: [0.0, 0.0, 1.0, 1.0] as [number, number, number, number] }
+    },
+    exit: (dir: number) => ({
+      x: dir > 0 ? -containerWidth : containerWidth,
+      transition: { duration: 0.45, ease: [0.0, 0.0, 1.0, 1.0] as [number, number, number, number] }
+    })
+  };
 
   const slideItems = items.slice(
     currentIndex * itemsPerSlide,
@@ -86,7 +86,7 @@ export default function Carousel({ items, rounded = "rounded-3xl" }: CarouselPro
               animate="center"
               exit="exit"
             >
-              {slideItems.map((item, idx) => (
+              {slideItems.map((item) => (
                 <motion.div
                   key={item.id}
                   whileHover={{ scale: 1.02 }}
