@@ -2,15 +2,25 @@
 
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence, Variants } from "framer-motion";
-import { CarouselItem } from "./map";
+import type { CarouselItem } from "./map";
+import CloudinaryImage from "./CloudinaryImage";
+
+import { images } from "@/app/components/media/images";
+import { videos } from "@/app/components/media/video";
+import { cloudinaryVideoUrl } from "@/app/components/media/cloudinary";
 
 interface CarouselProps {
   items: CarouselItem[];
   rounded?: string;
 }
 
-export default function Carousel({ items, rounded = "rounded-3xl" }: CarouselProps) {
-  const [[currentIndex, direction], setCurrentIndex] = useState<[number, number]>([0, 0]);
+export default function Carousel({
+  items,
+  rounded = "rounded-3xl",
+}: CarouselProps) {
+  const [[currentIndex, direction], setCurrentIndex] = useState<
+    [number, number]
+  >([0, 0]);
   const [itemsPerSlide, setItemsPerSlide] = useState(1);
   const [containerWidth, setContainerWidth] = useState(0);
 
@@ -24,9 +34,8 @@ export default function Carousel({ items, rounded = "rounded-3xl" }: CarouselPro
       else if (width >= 850) setItemsPerSlide(2);
       else setItemsPerSlide(1);
 
-      if (containerRef.current) {
+      if (containerRef.current)
         setContainerWidth(containerRef.current.offsetWidth);
-      }
     };
 
     updateLayout();
@@ -38,23 +47,31 @@ export default function Carousel({ items, rounded = "rounded-3xl" }: CarouselPro
 
   const prevSlide = () =>
     setCurrentIndex([(currentIndex - 1 + totalSlides) % totalSlides, -1]);
-
   const nextSlide = () =>
     setCurrentIndex([(currentIndex + 1) % totalSlides, 1]);
 
   const variants: Variants = {
     enter: (dir: number) => ({
       x: dir > 0 ? containerWidth : -containerWidth,
-      transition: { duration: 0.45, ease: [0.0, 0.0, 1.0, 1.0] as [number, number, number, number] }
+      transition: {
+        duration: 0.45,
+        ease: [0.0, 0.0, 1.0, 1.0] as [number, number, number, number],
+      },
     }),
     center: {
       x: 0,
-      transition: { duration: 0.45, ease: [0.0, 0.0, 1.0, 1.0] as [number, number, number, number] }
+      transition: {
+        duration: 0.45,
+        ease: [0.0, 0.0, 1.0, 1.0] as [number, number, number, number],
+      },
     },
     exit: (dir: number) => ({
       x: dir > 0 ? -containerWidth : containerWidth,
-      transition: { duration: 0.45, ease: [0.0, 0.0, 1.0, 1.0] as [number, number, number, number] }
-    })
+      transition: {
+        duration: 0.45,
+        ease: [0.0, 0.0, 1.0, 1.0] as [number, number, number, number],
+      },
+    }),
   };
 
   const slideItems = items.slice(
@@ -62,15 +79,10 @@ export default function Carousel({ items, rounded = "rounded-3xl" }: CarouselPro
     currentIndex * itemsPerSlide + itemsPerSlide
   );
 
-  // Autoplay every 5 seconds
   useEffect(() => {
-    const interval = setInterval(() => {
-      nextSlide();
-    }, 5000);
-
+    const interval = setInterval(() => nextSlide(), 5000);
     return () => clearInterval(interval);
-  }, [currentIndex, itemsPerSlide]);
-
+  }, [currentIndex, itemsPerSlide]); // OK (your original behavior)
 
   return (
     <div className="relative w-full max-w-6xl mx-auto mt-6" ref={containerRef}>
@@ -93,19 +105,26 @@ export default function Carousel({ items, rounded = "rounded-3xl" }: CarouselPro
                   className="rounded-3xl overflow-hidden bg-white backdrop-blur-sm shadow"
                 >
                   {item.type === "image" ? (
-                    <img
-                      src={item.src}
+                    <CloudinaryImage
+                      src={images[item.srcKey]}
                       alt={item.alt || ""}
+                      width={800}
+                      height={500}
                       className="max-h-[450px] lg:max-h-[500px] w-auto object-contain"
+                      priority={item.id === 1}
                     />
                   ) : (
                     <video
-                      src={item.src}
+                      src={cloudinaryVideoUrl(
+                        videos[item.srcKey],
+                        "f_auto,q_auto"
+                      )}
                       className="max-h-[450px] lg:max-h-[500px] w-auto object-contain"
                       autoPlay
                       loop
                       muted
                       playsInline
+                      preload="metadata"
                     />
                   )}
                 </motion.div>
@@ -118,8 +137,8 @@ export default function Carousel({ items, rounded = "rounded-3xl" }: CarouselPro
         <button
           onClick={prevSlide}
           className="
-            absolute top-1/2 left-3 h-12 w-12 flex items-center justify-center 
-            rounded-full text-3xl bg-gray-200 backdrop-blur-md shadow-md 
+            absolute top-1/2 left-3 h-12 w-12 flex items-center justify-center
+            rounded-full text-3xl bg-gray-200 backdrop-blur-md shadow-md
             hover:bg-gray-300 hover:scale-105 transition -translate-y-1/2 cursor-pointer
           "
         >
@@ -129,8 +148,8 @@ export default function Carousel({ items, rounded = "rounded-3xl" }: CarouselPro
         <button
           onClick={nextSlide}
           className="
-            absolute top-1/2 right-3 h-12 w-12 flex items-center justify-center 
-            rounded-full text-3xl bg-gray-200 backdrop-blur-md shadow-md 
+            absolute top-1/2 right-3 h-12 w-12 flex items-center justify-center
+            rounded-full text-3xl bg-gray-200 backdrop-blur-md shadow-md
             hover:bg-gray-300 hover:scale-105 transition -translate-y-1/2 cursor-pointer
           "
         >
@@ -144,7 +163,7 @@ export default function Carousel({ items, rounded = "rounded-3xl" }: CarouselPro
           <span
             key={idx}
             className={`
-              h-2 w-4 rounded-full cursor-pointer transition-all 
+              h-2 w-4 rounded-full cursor-pointer transition-all
               ${idx === currentIndex ? "bg-[#2e4c2d] scale-110" : "bg-[#8cb692] opacity-60"}
             `}
             onClick={() => setCurrentIndex([idx, idx > currentIndex ? 1 : -1])}

@@ -1,10 +1,10 @@
-/* eslint-disable @next/next/no-img-element */
 "use client";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { cookie, playfairBold, playfairRegular } from "./styles/font/fonts";
 import { services, carouselImages } from "./components/map";
 import Carousel from "./components/Carousel";
+import CloudinaryImage from "./components/CloudinaryImage";
 
 const title = "Welcome to Sherayah's";
 const title2 = "Mobile Body Massage";
@@ -14,12 +14,14 @@ export default function Home() {
   const titleLetters = title.split("");
   const titleLetters2 = title2.split("");
   const titleLettersLg = titleLg.split("");
+  const bgImage = `https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload/f_auto,q_auto,w_1920/v1767641417/massage2_nvwndo.jpg`;
 
   return (
     <main className="flex flex-col">
       <div className="relative text-center h-96 lg:h-[500px] overflow-hidden flex flex-col items-center justify-center">
         <motion.div
-          className="absolute inset-0 bg-cover bg-center scale-100 bg-[url(/images/massage2.jpg)]"
+          className="absolute inset-0 bg-cover bg-center scale-100"
+          style={{ backgroundImage: `url(${bgImage})` }}
           initial={{ scale: 1 }}
           animate={{ scale: 1.1 }}
           transition={{
@@ -152,15 +154,19 @@ export default function Home() {
 
       <div className="relative bg-[#bee5d7] flex flex-col items-center justify-center overflow-hidden">
         {/* Decorative Images */}
-        <img
+        <CloudinaryImage
           src="/images/orchid.png"
           alt="Orchid Right"
           className="absolute -top-24 right-4 sm:right-10 h-[24rem] rotate-[30deg] object-cover z-10 opacity-90 pointer-events-none select-none"
+          width={0}
+          height={0}
         />
-        <img
+        <CloudinaryImage
           src="/images/snake.png"
           alt="Snake Plant Left"
           className="absolute bottom-0 left-4 sm:left-10 h-[24rem] object-cover z-10 opacity-90 pointer-events-none select-none"
+          width={0}
+          height={0}
         />
 
         {/* Top and bottom gradients */}
@@ -250,10 +256,12 @@ export default function Home() {
                 rounded-l-lg rounded-bl-lg rounded-t-none rounded-r-none rounded-b-none 
                 lg:rounded-l-none lg:rounded-t-lg lg:rounded-tr-lg lg:rounded-tl-lg overflow-hidden"
                 >
-                  <img
+                  <CloudinaryImage
                     src={service.image}
                     alt={service.title}
                     className={`w-full h-full ${service.title === "Chair Massage" ? "object-top" : "object-cover"}`}
+                    width={0}
+                    height={0}
                   />
                 </div>
 
@@ -279,10 +287,14 @@ export default function Home() {
       <div className="px-4 sm:px-6 lg:px-12 pt-6">
         {/* Header */}
         <div className="mb-6 text-center">
-          <h2 className={`text-2xl sm:text-3xl font-bold text-gray-800 ${playfairBold.className}`}>
+          <h2
+            className={`text-2xl sm:text-3xl font-bold text-gray-800 ${playfairBold.className}`}
+          >
             Gallery
           </h2>
-          <p className={`mt-2 text-gray-600 text-sm sm:text-base sm:mx-0 ${playfairRegular.className}`}>
+          <p
+            className={`mt-2 text-gray-600 text-sm sm:text-base sm:mx-0 ${playfairRegular.className}`}
+          >
             Explore our collection of images and videos showcasing our latest
             projects and highlights.
           </p>
@@ -291,7 +303,9 @@ export default function Home() {
 
         {/* Optional captions or description under carousel */}
         <div className="mt-2 text-center">
-          <p className={`text-gray-500 text-sm sm:text-base ${playfairRegular.className}`}>
+          <p
+            className={`text-gray-500 text-sm sm:text-base ${playfairRegular.className}`}
+          >
             Swipe or click the arrows to navigate through the gallery.
           </p>
         </div>
@@ -303,15 +317,19 @@ export default function Home() {
         {/* Left Column: 40% on lg */}
         <div className="w-full lg:w-[40%] flex justify-center items-start relative z-10">
           <div className="relative">
-            <img
+            <CloudinaryImage
               src="/images/leaf2.png"
               alt="Background"
               className="absolute w-48 sm:w-58 -rotate-[45deg] opacity-70 z-10 object-cover mt-18 -left-6 sm:-left-20 bottom-5 lg:-left-10"
+              width={0}
+              height={0}
             />
-            <img
+            <CloudinaryImage
               src="/images/portrait.png"
               alt="Foreground"
               className="relative w-[300px] sm:w-[350px] lg:w-[380px] object-cover z-20 left-10 sm:left-15 lg:-bottom-4"
+              width={0}
+              height={0}
             />
           </div>
         </div>

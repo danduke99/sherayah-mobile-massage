@@ -1,16 +1,18 @@
-import Link from 'next/link'
-import {
-  PhoneIcon,
-  EnvelopeIcon,
-} from '@heroicons/react/24/solid'
+import Link from "next/link";
+import { PhoneIcon, EnvelopeIcon } from "@heroicons/react/24/solid";
 import {
   cookie,
   playfairMedium,
   playfairRegular,
   playfairSemiBold,
-} from '../styles/font/fonts'
+} from "../styles/font/fonts";
+import CloudinaryImage from "./CloudinaryImage";
 
 export default function Footer() {
+  // Replace these with the exact public_id values from Cloudinary (no .png)
+  const soloLogoPublicId = "soloLogo_x4o3gm";
+  const caribPremierLogoPublicId = "logo_dfz7qy"; // or whatever folder/public_id you uploaded
+
   return (
     <>
       {/* Top Footer */}
@@ -30,9 +32,11 @@ export default function Footer() {
         {/* Center: Logo */}
         <div className="flex justify-center items-center">
           <div className="rounded-full bg-white w-40 h-40 flex justify-center items-center">
-            <img
-              src="/images/soloLogo.png"
+            <CloudinaryImage
+              src={soloLogoPublicId}
               alt="Sherayah's logo"
+              width={160}
+              height={160}
               className="w-32 h-32 object-contain"
             />
           </div>
@@ -74,16 +78,18 @@ export default function Footer() {
             rel="noopener noreferrer"
             className="hover:underline hover:text-[#00e590]"
           >
-            <img
-              src="/images/logo.png"
+            <CloudinaryImage
+              src={caribPremierLogoPublicId}
               alt="Caribbean Premier logo"
-              className="w-10 h-10 mx-auto"
+              width={40}
+              height={40}
+              className="w-10 h-10 mx-auto object-contain"
             />
           </Link>
         </div>
 
         <div className={`text-xs ${playfairRegular.className} text-white`}>
-          Created by{' '}
+          Created by{" "}
           <Link
             href="https://carib-premier.com"
             target="_blank"
@@ -95,5 +101,5 @@ export default function Footer() {
         </div>
       </div>
     </>
-  )
+  );
 }
