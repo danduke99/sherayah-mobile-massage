@@ -2,9 +2,10 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { cookie, playfairBold, playfairRegular } from "./styles/font/fonts";
-import { services, carouselImages } from "./components/map";
+import { services, carouselImages, bgImage } from "./components/map";
 import Carousel from "./components/Carousel";
 import CloudinaryImage from "./components/CloudinaryImage";
+import { images } from "./components/media/images";
 
 const title = "Welcome to Sherayah's";
 const title2 = "Mobile Body Massage";
@@ -14,7 +15,6 @@ export default function Home() {
   const titleLetters = title.split("");
   const titleLetters2 = title2.split("");
   const titleLettersLg = titleLg.split("");
-  const bgImage = `https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload/f_auto,q_auto,w_1920/v1767641417/massage2_nvwndo.jpg`;
 
   return (
     <main className="flex flex-col">
@@ -155,7 +155,7 @@ export default function Home() {
       <div className="relative bg-[#bee5d7] flex flex-col items-center justify-center overflow-hidden">
         {/* Decorative Images */}
         <CloudinaryImage
-          src="/images/orchid.png"
+          src="orchid"
           alt="Orchid Right"
           className="absolute -top-24 right-4 sm:right-10 h-[24rem] rotate-[30deg] object-cover z-10 opacity-90 pointer-events-none select-none"
           width={0}
@@ -244,6 +244,7 @@ export default function Home() {
           </div>
 
           {/* Services Grid */}
+          {/* Services Grid */}
           <div className="mb-6 mx-6 max-w-7xl flex flex-col gap-4 overflow-y-auto lg:overflow-visible lg:flex-row lg:flex-wrap lg:gap-x-6 lg:gap-y-6">
             {services.map((service, index) => (
               <div
@@ -253,15 +254,19 @@ export default function Home() {
                 {/* Image */}
                 <div
                   className="w-36 h-36 lg:w-full lg:h-52 flex-shrink-0 
-                rounded-l-lg rounded-bl-lg rounded-t-none rounded-r-none rounded-b-none 
-                lg:rounded-l-none lg:rounded-t-lg lg:rounded-tr-lg lg:rounded-tl-lg overflow-hidden"
+        rounded-l-lg rounded-bl-lg rounded-t-none rounded-r-none rounded-b-none 
+        lg:rounded-l-none lg:rounded-t-lg lg:rounded-tr-lg lg:rounded-tl-lg overflow-hidden"
                 >
                   <CloudinaryImage
-                    src={service.image}
+                    src={images[service.imageKey]}
                     alt={service.title}
-                    className={`w-full h-full ${service.title === "Chair Massage" ? "object-top" : "object-cover"}`}
-                    width={0}
-                    height={0}
+                    width={600}
+                    height={420}
+                    className={`w-full h-full ${
+                      service.title === "Chair Massage"
+                        ? "object-top"
+                        : "object-cover"
+                    }`}
                   />
                 </div>
 
@@ -318,18 +323,19 @@ export default function Home() {
         <div className="w-full lg:w-[40%] flex justify-center items-start relative z-10">
           <div className="relative">
             <CloudinaryImage
-              src="/images/leaf2.png"
-              alt="Background"
-              className="absolute w-48 sm:w-58 -rotate-[45deg] opacity-70 z-10 object-cover mt-18 -left-6 sm:-left-20 bottom-5 lg:-left-10"
-              width={0}
-              height={0}
+              src={images.orchid}
+              alt="Orchid Right"
+              width={900}
+              height={1600}
+              className="absolute -top-24 right-4 sm:right-10 h-[24rem] rotate-[30deg] object-cover z-10 opacity-90 pointer-events-none select-none"
             />
+
             <CloudinaryImage
-              src="/images/portrait.png"
-              alt="Foreground"
-              className="relative w-[300px] sm:w-[350px] lg:w-[380px] object-cover z-20 left-10 sm:left-15 lg:-bottom-4"
-              width={0}
-              height={0}
+              src={images.snake}
+              alt="Snake Plant Left"
+              width={900}
+              height={1600}
+              className="absolute bottom-0 left-4 sm:left-10 h-[24rem] object-cover z-10 opacity-90 pointer-events-none select-none"
             />
           </div>
         </div>

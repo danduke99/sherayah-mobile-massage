@@ -10,7 +10,7 @@ import CloudinaryImage from "./CloudinaryImage";
 
 export default function Footer() {
   // Replace these with the exact public_id values from Cloudinary (no .png)
-  const soloLogoPublicId = "soloLogo_x4o3gm";
+  const soloLogoPublicId = "soloLogo_aeelqi";
   const caribPremierLogoPublicId = "logo_dfz7qy"; // or whatever folder/public_id you uploaded
 
   return (

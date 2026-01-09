@@ -1,100 +1,104 @@
 import type { ImageKey } from "@/app/components/media/images";
-import type { VideoKey } from "@/app/components/media/video";
+import type { VideoKey } from "@/app/components/media/video"; // NOTE: videos (plural) is recommended
 
 export type CarouselItem =
   | { id: number; type: "image"; srcKey: ImageKey; alt?: string }
   | { id: number; type: "video"; srcKey: VideoKey; alt?: string };
 
-export const services = [
+export type Service = {
+  [x: string]: string;
+  title: string;
+  imageKey: ImageKey;
+  description: string;
+};
+
+export const services: Service[] = [
   {
     title: "Swedish Massage",
-    image: "swedish",
+    imageKey: "swedish",
     description: "Gentle, flowing strokes that promote relaxation and reduce tension.",
   },
   {
     title: "Head, Neck, Shoulder Massage",
-    image: "neck",
+    imageKey: "neck",
     description: "Relieve built-up stress and tension in the upper body.",
   },
   {
     title: "Foot Massage",
-    image: "foot",
+    imageKey: "foot",
     description: "Soothe tired feet and improve circulation with targeted pressure.",
   },
   {
     title: "Aromatic Massage",
-    image: "massage5",
+    imageKey: "massage5",
     description: "Enhance well-being with therapeutic essential oils and soft touch.",
   },
   {
     title: "Hot Oil Massage",
-    image: "hotOil",
+    imageKey: "hotOil",
     description: "Melt away stress with nourishing, warm oils and deep strokes.",
   },
   {
     title: "Relax Massage",
-    image: "massage4",
+    imageKey: "massage4",
     description: "Experience tranquility through smooth and calming massage therapy.",
   },
   {
     title: "Chair Massage",
-    image: "Chair",
+    imageKey: "chair", // IMPORTANT: prefer consistent casing; update images.ts accordingly
     description: "Quick stress relief focused on your back, neck, and shoulders.",
   },
   {
     title: "Bamboo Massage",
-    image: "bamboo",
+    imageKey: "bamboo",
     description: "Deep tissue work using warm bamboo rods for intense relief.",
   },
   {
     title: "Hot Stone Massage",
-    image: "stone",
+    imageKey: "stone",
     description: "Feel your muscles unwind as heated stones ease tightness.",
   },
 ];
 
-export const teamMembers = [
+export type TeamMember = {
+  name: string;
+  role: string;
+  imageKey: ImageKey;
+};
+
+export const teamMembers: TeamMember[] = [
   {
-    name: "Jane Doe",
-    role: "Head Masseuse",
-    image: "headshot1",
+    name: "Peggy",
+    role: "Massage Therapist",
+    imageKey: "theraP", // you MUST match the key in images.ts exactly
   },
   {
-    name: "John Doe",
-    role: "Masseuse",
-    image: "headshot2",
+    name: "Jose",
+    role: "Chiropractor/Massage Therapist",
+    imageKey: "thera3",
   },
   {
-    name: "Janet Doe",
-    role: "Chiropractor",
-    image: "headshot3",
+    name: "Tessa",
+    role: "Massage Therapist",
+    imageKey: "thera4",
   },
   {
-    name: "Janet Doe",
-    role: "Chiropractor",
-    image: "headshot3",
+    name: "Samuel",
+    role: "Massage Therapist",
+    imageKey: "thera2",
   },
   {
-    name: "Janet Doe",
-    role: "Chiropractor",
-    image: "headshot3",
-  },{
-    name: "Janet Doe",
-    role: "Chiropractor",
-    image: "headshot3",
-  },
-  {
-    name: "Janet Doe",
-    role: "Chiropractor",
-    image: "headshot3",
+    name: "Stefano",
+    role: "Massage Therapist",
+    imageKey: "thera1",
   },
 ];
 
 export const carouselImages: CarouselItem[] = [
-  { id: 1,  type: "image", srcKey: "carousel1" },
-  { id: 2,  type: "video", srcKey: "carousel1" },
-  { id: 3,  type: "image", srcKey: "carousel2" },
-  { id: 4,  type: "image", srcKey: "anni" },
+  { id: 1, type: "image", srcKey: "carousel1" },
+  { id: 2, type: "video", srcKey: "carousel1" },
+  { id: 3, type: "image", srcKey: "carousel2" },
+  { id: 4, type: "image", srcKey: "anni" },
   { id: 5, type: "image", srcKey: "beach" },
   { id: 6, type: "image", srcKey: "beachW" },
   { id: 7, type: "image", srcKey: "belair" },
@@ -109,3 +113,5 @@ export const carouselImages: CarouselItem[] = [
   { id: 16, type: "video", srcKey: "work" },
   { id: 17, type: "video", srcKey: "work2" },
 ];
+
+export const bgImage = `https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload/f_auto,q_auto,w_1920/v1767641417/massage2_nvwndo.jpg`;

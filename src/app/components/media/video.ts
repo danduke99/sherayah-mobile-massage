@@ -5,6 +5,7 @@ export const videos = {
   loc: "loc_labxuq",
   work: "work_b8vugi",
   work2: "work2_zfp2vt",
+  threeD: "3dlogo_ndug2i",
 } as const;
 
 export type VideoKey = keyof typeof videos;

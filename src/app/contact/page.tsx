@@ -57,7 +57,7 @@ export default function Contact() {
       {/* Header Image Section */}
       <div className="relative w-full h-40 sm:h-48 overflow-hidden">
         <img
-          src="/images/aboutMassage.jpg"
+          src="/images/aboutCover.jpg"
           alt="Massage Background"
           loading="lazy"
           className="absolute inset-0 w-full h-full object-cover object-right z-0"
