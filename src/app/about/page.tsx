@@ -1,13 +1,15 @@
-import { cookie, playfairBold, playfairRegular } from "../styles/font/fonts";
+"use client";
+
+import { cookie, playfairBold, playfairRegular, playfairSemiBold } from "../styles/font/fonts";
 import { services, teamMembers } from "../components/map";
 import CloudinaryImage from "../components/CloudinaryImage";
 import { images } from "../components/media/images";
 import Image from "next/image";
-import { cloudinaryVideoUrl } from "@/app/components/media/cloudinary";
-import { videos } from "@/app/components/media/video";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
 
 export default function About() {
-  const logoPublicId = images.mainLogo; // e.g. "Massage/Sherayah_c62od8"
+  const logoPublicId = images.mainLogo;
 
   return (
     <main className="mx-auto relative bg-white">
@@ -38,34 +40,21 @@ export default function About() {
               alt="Background"
               width={600}
               height={600}
-              className="absolute w-40 sm:w-52 lg:w-48 xl:w-72 -rotate-[45deg] sm:-rotate-[30deg] lg:-rotate-[45deg] xl:-rotate-[35deg]
-      opacity-70 z-10 object-cover mt-18 bottom-15 sm:-bottom-1 lg:-bottom-20 xl:-bottom-10 -left-10 sm:-left-13 lg:-left-10 xl:-left-15"
+              className="absolute w-40 sm:w-52 lg:w-48 xl:w-84 -rotate-[45deg] sm:-rotate-[30deg] lg:-rotate-[45deg] xl:-rotate-[35deg]
+        opacity-70 z-10 object-cover mt-18 bottom-15 sm:-bottom-1 lg:-bottom-20 xl:bottom-2 -left-10 sm:-left-13 lg:-left-10 xl:-left-20"
             />
-            <div
-              className="
-      relative z-20 left-13 bottom-18 sm:left-10 sm:-bottom-1
-      h-[300px] w-[300px]
-      lg:-bottom-[126px] xl:-bottom-[26px] xl:left-20
-      lg:h-[400px] lg:w-[350px]
-      xl:h-[500px] xl:w-full
-      perspective-[1200px]
-    "
-            >
-              <div
-                className="
-        w-full h-full
-        rounded-full
-        backdrop-blur-xl
-        shadow-[0_30px_80px_rgba(0,0,0,0.35)]
-        transform-gpu
-        transition-transform duration-700 ease-out
-        hover:rotate-x-[12deg] hover:rotate-y-[-10deg] hover:scale-[1.05]
-        overflow-hidden
-      "
-              >
-                <CloudinaryImage src="" alt={"3d"} width={0} height={0} />
-              </div>
-            </div>
+
+            {/* Scroll target wrapper */}
+            <ScrollTilt3D>
+              <CloudinaryImage
+                src={images.threeD}
+                alt="3D Logo"
+                width={700}
+                height={700}
+                className="w-full h-full object-contain p-10"
+                priority
+              />
+            </ScrollTilt3D>
           </div>
         </div>
 
@@ -74,18 +63,22 @@ export default function About() {
           <p
             className={`text-[#2c3e50] ${cookie.className} text-5xl lg:text-7xl xl:text-8xl mb-2 lg:mb-0 w-full text-center lg:text-left`}
           >
-            Who am I?
+            Who are we?
           </p>
 
           <div className="flex flex-col">
             <p
               className={`text-base sm:text-xs lg:text-lg xl:text-xl text-left z-30 relative text-[#405d3f] mb-3 ${playfairRegular.className}`}
             >
-              &quot;I&apos;m a passionate massage therapist dedicated to helping
-              people feel their best—wherever they are. With Serenity Touch, I
-              bring a calm, rejuvenating experience straight to your doorstep.
-              My mission is to create moments of peace in your day through
-              thoughtful, personalized care.
+              We are a new mobile massage parlor dedicated to bringing
+              relaxation, balance, and renewal directly to your doorstep.
+              Whether you are at home, at work, or in a private space of your
+              choosing, our goal is to create a calm and restorative environment
+              that allows you to fully disconnect from stress and reconnect with
+              your body. Every session is designed to feel like a personal
+              retreat, combining professional techniques with a thoughtful,
+              soothing approach that adapts to your unique needs and
+              preferences.
             </p>
             <p
               className={`text-base sm:text-xs lg:text-lg xl:text-xl text-left z-30 relative text-[#405d3f] mb-3 ${playfairRegular.className}`}
@@ -99,13 +92,8 @@ export default function About() {
             <p
               className={`text-base sm:text-xs lg:text-lg xl:text-xl text-left z-30 relative text-[#405d3f] mb-3 ${playfairRegular.className}`}
             >
-              Let Serenity Touch be your space to pause, breathe, and reconnect
-              — <a className="font-semibold">with yourself.</a>&quot;
-            </p>
-            <p
-              className={`text-base sm:text-xs lg:text-lg xl:text-xl text-left z-30 relative text-[#405d3f] mb-3 ${playfairBold.className}`}
-            >
-              Jane Doe - Masseuse
+              Let <a className={`${playfairBold.className}`}>Sherayah's Mobile Body Massage</a> be your space to pause, breathe, and reconnect
+              — <a className={`${playfairSemiBold.className}`}>with yourself.</a>&quot;
             </p>
           </div>
         </div>
@@ -222,5 +210,51 @@ export default function About() {
         </div>
       </div>
     </main>
+  );
+}
+
+function ScrollTilt3D({ children }: { children: React.ReactNode }) {
+  const ref = useRef<HTMLDivElement>(null);
+
+  // Track scroll progress relative to THIS element
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start 90%", "end 20%"], // longer scroll window = bigger effect duration
+  });
+
+  // Bigger, more obvious effect ranges
+  const rotateX = useTransform(scrollYProgress, [0, 1], [28, -28]);
+  const rotateY = useTransform(scrollYProgress, [0, 1], [-32, 32]);
+  const scale = useTransform(scrollYProgress, [0, 1], [0.7, 1.25]);
+  const y = useTransform(scrollYProgress, [0, 1], [60, -60]);
+
+  return (
+    <div
+      ref={ref}
+      className="
+        relative z-20 left-13 bottom-18 sm:left-10 sm:-bottom-1
+        h-[320px] w-[320px]
+        lg:-bottom-[126px] xl:-bottom-[26px] xl:left-20
+        lg:h-[460px] lg:w-[420px]
+        xl:h-[560px] xl:w-[520px]
+        [perspective:1400px]
+      "
+    >
+      <motion.div
+        style={{ rotateX, rotateY, scale, y, transformStyle: "preserve-3d" }}
+        className="
+          w-full h-full
+          rounded-full
+          border-4 border-[#405d3f]
+          bg-white/5
+          backdrop-blur-sm
+          shadow-[0_30px_80px_rgba(0,0,0,0.35)]
+          overflow-hidden
+          will-change-transform
+        "
+      >
+        {children}
+      </motion.div>
+    </div>
   );
 }

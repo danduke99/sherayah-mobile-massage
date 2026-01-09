@@ -1,31 +1,33 @@
-'use client';
-import { useState } from 'react';
-import Link from 'next/link';
-import { cookie } from '../styles/font/fonts';
+"use client";
+import { useState } from "react";
+import Link from "next/link";
+import { cookie } from "../styles/font/fonts";
 
 export default function Contact() {
-  const [form, setForm] = useState({ name: '', email: '', message: '' });
-  const [status, setStatus] = useState('');
+  const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const [status, setStatus] = useState("");
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    setStatus('');
+    setStatus("");
     setSuccess(false);
 
     const { name, email, message } = form;
 
     try {
-      const res = await fetch('/api/contact', {
-        method: 'POST',
+      const res = await fetch("/api/contact", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ name, email, message }),
       });
@@ -33,22 +35,22 @@ export default function Contact() {
       const data = await res.json();
 
       if (res.ok) {
-        setStatus('Your message has been sent successfully!');
+        setStatus("Your message has been sent successfully!");
         setSuccess(true);
       } else {
-        setStatus(data.message || 'Something went wrong. Please try again.');
+        setStatus(data.message || "Something went wrong. Please try again.");
       }
     } catch (error) {
       console.error(error);
-      setStatus('An error occurred. Please try again later.');
+      setStatus("An error occurred. Please try again later.");
     } finally {
       setLoading(false);
     }
   };
 
   const handleResetForm = () => {
-    setForm({ name: '', email: '', message: '' });
-    setStatus('');
+    setForm({ name: "", email: "", message: "" });
+    setStatus("");
     setSuccess(false);
   };
 
@@ -63,14 +65,18 @@ export default function Contact() {
           className="absolute inset-0 w-full h-full object-cover object-right z-0"
         />
         <div className="relative z-10 flex flex-col justify-center items-center h-full text-white bg-black/30 px-4">
-          <h1 className={`text-5xl sm:text-6xl md:text-7xl lg:text-8xl ${cookie.className} text-center`}>
+          <h1
+            className={`text-5xl sm:text-6xl md:text-7xl lg:text-8xl ${cookie.className} text-center`}
+          >
             Contact Us
           </h1>
         </div>
       </div>
 
       {/* Description */}
-      <div className={`px-4 ${cookie.className} mt-2 text-center text-2xl mx-auto sm:text-3xl`}>
+      <div
+        className={`px-4 ${cookie.className} mt-2 text-center text-2xl mx-auto sm:text-3xl`}
+      >
         Fill in the form below to send us an email.
       </div>
 
@@ -96,7 +102,10 @@ export default function Contact() {
 
       {/* Contact Form */}
       {!loading && !success && (
-        <form onSubmit={handleSubmit} className="mt-2 space-y-4 max-w-xl mx-auto px-4 sm:px-0">
+        <form
+          onSubmit={handleSubmit}
+          className="mt-2 space-y-4 max-w-xl mx-auto px-4 sm:px-0"
+        >
           <input
             name="name"
             value={form.name}
@@ -135,35 +144,45 @@ export default function Contact() {
               disabled={loading}
               className="bg-[#405d3f] text-white font-semibold px-6 py-2 rounded-full hover:cursor-pointer hover:bg-[#2e4c2d] w-full max-w-xs sm:max-w-sm disabled:opacity-60 disabled:cursor-not-allowed"
             >
-              {loading ? 'Sending...' : 'Send'}
+              {loading ? "Sending..." : "Send"}
             </button>
           </div>
-          {status && <p className="text-center text-sm text-red-700">{status}</p>}
+          {status && (
+            <p className="text-center text-sm text-red-700">{status}</p>
+          )}
         </form>
       )}
 
       {/* Contact Alternatives */}
       <div className="flex justify-center items-center mb-2 mt-4 px-4">
-        <div className={`${cookie.className} text-center text-xl sm:text-2xl md:text-xl max-w-3xl lg:text-3xl`}>
-          If you do not have an email or can not use the form, please contact us on{' '}
+        <div
+          className={`${cookie.className} text-center text-xl sm:text-2xl md:text-xl max-w-3xl lg:text-3xl`}
+        >
+          If you do not have an email or cannot use the form, please contact us
+          on{" "}
           <Link
             className="hover:underline text-[#1676f2] hover:decoration-[#1676f2]"
             href="https://www.facebook.com/SherayahMBM"
+            target="_blank"
+            rel="noopener noreferrer"
           >
-            Facebook,
-          </Link>{' '}
+            Facebook
+          </Link>
+          ,{" "}
           <Link
-            href="https://www.whatsapp.com/"
+            href="https://wa.me/17215862966"
+            target="_blank"
+            rel="noopener noreferrer"
             className="text-[#3dc14c] hover:underline hover:decoration-[#3dc14c]"
           >
             WhatsApp
-          </Link>{' '}
-          or call us at{' '}
+          </Link>{" "}
+          or call us at{" "}
           <Link
-            href="tel:7215862966"
+            href="tel:+17215862966"
             className="text-[#405d3f] hover:underline hover:decoration-[#405d3f]"
           >
-            721 586 2966
+            721&nbsp;586&nbsp;2966
           </Link>
         </div>
       </div>

@@ -1,6 +1,7 @@
 'use client'
 
 import { CldImage } from 'next-cloudinary'
+import Image from 'next/image'
 
 type Props = {
   src: string
@@ -19,6 +20,22 @@ export default function CloudinaryImage({
   className,
   priority = false,
 }: Props) {
+  const isLocal = src.startsWith('local:')
+
+  if (isLocal) {
+    const localPath = src.replace('local:', '')
+    return (
+      <Image
+        src={localPath}
+        alt={alt}
+        width={width}
+        height={height}
+        className={className}
+        priority={priority}
+      />
+    )
+  }
+
   return (
     <CldImage
       src={src}

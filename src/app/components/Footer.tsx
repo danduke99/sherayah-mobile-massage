@@ -53,10 +53,10 @@ export default function Footer() {
           <div className="flex gap-2 items-center justify-center">
             <EnvelopeIcon className="w-5 h-5" />
             <a
-              href="mailto:info@yourdomain.com"
+              href="mailto:info@sherayahmobile.com"
               className={`${playfairMedium.className} underline hover:text-[#e7d882]`}
             >
-              info@yourdomain.com
+              info@sherayahmobile.com
             </a>
           </div>
 

@@ -15,6 +15,7 @@
     "/about/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
+      "static/css/app/about/page.css",
       "static/chunks/app/about/page.js"
     ],
     "/contact/page": [
@@ -22,6 +23,11 @@
       "static/chunks/main-app.js",
       "static/css/app/contact/page.css",
       "static/chunks/app/contact/page.js"
+    ],
+    "/api/contact/route": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/api/contact/route.js"
     ]
   }
 }

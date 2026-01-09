@@ -2,12 +2,12 @@ export const images = {
   swedish: "swedish_vw7mav",
   neck: "neck_lkgv1y",
   foot: "foot_rlazty",
-  massage5: "massage5_lkgv1y",
-  hotOil: "/images/hotOil.jpg",
+  massage5: "massage5_wxhzoz",
+  hotOil: "local:/images/hotOil.jpg",
   massage4: "massage4_pqs4dm",
   chair: "Chair_chjjh0",
   bamboo: "bamboo_n0ufiu",
-  stone: "stone",
+  stone: "local:/images/stone.jpg",
   orchid: "orchid_ctrynn",
   snake: "snake_ulvwn6",
 
@@ -33,6 +33,7 @@ export const images = {
   thera2: "Thera2_py8oov",
   thera3: "Thera3_jbestr",
   thera4: "Thera4_im7rdj",
+  threeD: "3d_igntnl",
 
 } as const;
 

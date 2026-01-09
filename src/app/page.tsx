@@ -17,7 +17,7 @@ export default function Home() {
   const titleLettersLg = titleLg.split("");
 
   return (
-    <main className="flex flex-col">
+    <main className="flex flex-col overflow-hidden">
       <div className="relative text-center h-96 lg:h-[500px] overflow-hidden flex flex-col items-center justify-center">
         <motion.div
           className="absolute inset-0 bg-cover bg-center scale-100"
@@ -155,17 +155,17 @@ export default function Home() {
       <div className="relative bg-[#bee5d7] flex flex-col items-center justify-center overflow-hidden">
         {/* Decorative Images */}
         <CloudinaryImage
-          src="orchid"
+          src={images.orchid}
           alt="Orchid Right"
           className="absolute -top-24 right-4 sm:right-10 h-[24rem] rotate-[30deg] object-cover z-10 opacity-90 pointer-events-none select-none"
-          width={0}
-          height={0}
+          width={375}
+          height={5}
         />
         <CloudinaryImage
-          src="/images/snake.png"
+          src={images.snake}
           alt="Snake Plant Left"
           className="absolute bottom-0 left-4 sm:left-10 h-[24rem] object-cover z-10 opacity-90 pointer-events-none select-none"
-          width={0}
+          width={425}
           height={0}
         />
 
@@ -244,7 +244,6 @@ export default function Home() {
           </div>
 
           {/* Services Grid */}
-          {/* Services Grid */}
           <div className="mb-6 mx-6 max-w-7xl flex flex-col gap-4 overflow-y-auto lg:overflow-visible lg:flex-row lg:flex-wrap lg:gap-x-6 lg:gap-y-6">
             {services.map((service, index) => (
               <div
@@ -318,46 +317,86 @@ export default function Home() {
         <div className="border-b-2 border-gray-200 mt-10 mx-6 sm:mx-24"></div>
       </div>
 
-      <div className="relative flex flex-col w-full h-auto z-10 p-4 lg:flex-row">
-        {/* Left Column: 40% on lg */}
-        <div className="w-full lg:w-[40%] flex justify-center items-start relative z-10">
-          <div className="relative">
+      <div className="w-full flex flex-col lg:flex-row justify-center items-start relative z-10 px-4 lg:px-0">
+        {/* LEFT: logo/leaf (desktop only) */}
+        <div className="hidden lg:flex w-full lg:w-[40%] justify-center items-start relative z-10">
+          <div className="relative w-full max-w-[520px] h-[520px]">
+            {/* Decorative leaf */}
             <CloudinaryImage
-              src={images.orchid}
-              alt="Orchid Right"
-              width={900}
-              height={1600}
-              className="absolute -top-24 right-4 sm:right-10 h-[24rem] rotate-[30deg] object-cover z-10 opacity-90 pointer-events-none select-none"
+              src={images.leaf2}
+              alt="Background"
+              width={600}
+              height={600}
+              className="
+          absolute
+          w-52 lg:w-48 xl:w-84
+          -rotate-[45deg] lg:-rotate-[45deg] xl:-rotate-[35deg]
+          opacity-70 z-10
+          object-contain
+          -left-14 lg:-left-16 xl:-left-20
+          bottom-10
+        "
+              priority
             />
 
-            <CloudinaryImage
-              src={images.snake}
-              alt="Snake Plant Left"
-              width={900}
-              height={1600}
-              className="absolute bottom-0 left-4 sm:left-10 h-[24rem] object-cover z-10 opacity-90 pointer-events-none select-none"
-            />
+            {/* 3D Logo card */}
+            <div
+              className="
+          relative z-20
+          left-24
+          bottom-5
+          h-[380px] w-[380px]
+          xl:h-[460px] xl:w-[460px]
+          [perspective:1400px]
+        "
+            >
+              <div
+                className="
+            w-full h-full
+            rounded-full
+            border-4 border-[#405d3f]
+            bg-white/5
+            backdrop-blur-sm
+            shadow-[0_30px_80px_rgba(0,0,0,0.35)]
+            transform-gpu
+            transition-transform duration-700 ease-out
+            hover:scale-[1.08]
+            overflow-hidden
+          "
+              >
+                <CloudinaryImage
+                  src={images.threeD}
+                  alt="3D Logo"
+                  width={700}
+                  height={700}
+                  className="w-full h-full object-contain p-10"
+                  priority
+                />
+              </div>
+            </div>
           </div>
         </div>
 
-        {/* Right Column: 60% on lg */}
-        <div className="w-full lg:w-[60%] bg-white flex flex-col justify-center items-center text-center lg:text-left lg:items-start z-20 lg:mx-5">
+        {/* RIGHT: text (full width on mobile, 60% on desktop) */}
+        <div className="w-full lg:w-[60%] bg-white flex flex-col justify-center items-center text-center lg:text-left lg:items-start z-20 lg:mx-5 py-6 lg:py-0">
           <p
-            className={`text-[#2c3e50] ${cookie.className} text-[60px] lg:text-[80px] text-start`}
+            className={`text-[#2c3e50] ${cookie.className} text-[44px] sm:text-[56px] lg:text-[80px] leading-tight text-center lg:text-start`}
           >
             Who Are We?
           </p>
+
           <p
-            className={`max-w-2xl text-gray-700 text-md mb-3 lg:max-w-3xl ${playfairRegular.className}`}
+            className={`w-full max-w-xl sm:max-w-2xl lg:max-w-3xl text-gray-700 text-base sm:text-lg lg:text-md mb-4 ${playfairRegular.className}`}
           >
             We are a new mobile massage parlor bringing relaxation and
             rejuvenation directly to your doorstep. Whether you&apos;re at home
             or at work, our professionalism creates a calming experience
             wherever you are.
           </p>
+
           <Link href="/about" className="w-fit">
             <button
-              className={`bg-[#82a687] text-white py-2 px-6 lg:py-3 lg:px-13 lg:mt-8 rounded-full hover:bg-[#405d3f] transition hover:cursor-pointer ${playfairBold.className}`}
+              className={`bg-[#82a687] text-white py-2 px-6 lg:py-3 lg:px-13 lg:mt-6 rounded-full hover:bg-[#405d3f] transition hover:cursor-pointer ${playfairBold.className}`}
             >
               Learn More
             </button>
