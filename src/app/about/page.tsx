@@ -9,8 +9,6 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 
 export default function About() {
-  const logoPublicId = images.mainLogo;
-
   return (
     <main className="mx-auto relative bg-white">
       {/* Hero Section */}
@@ -92,7 +90,7 @@ export default function About() {
             <p
               className={`text-base sm:text-xs lg:text-lg xl:text-xl text-left z-30 relative text-[#405d3f] mb-3 ${playfairRegular.className}`}
             >
-              Let <a className={`${playfairBold.className}`}>Sherayah's Mobile Body Massage</a> be your space to pause, breathe, and reconnect
+              Let <a className={`${playfairBold.className}`}>Sherayah&apos;s Mobile Body Massage</a> be your space to pause, breathe, and reconnect
               — <a className={`${playfairSemiBold.className}`}>with yourself.</a>&quot;
             </p>
           </div>
