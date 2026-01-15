@@ -6,6 +6,7 @@ import { services, carouselImages, bgImage } from "./components/map";
 import Carousel from "./components/Carousel";
 import CloudinaryImage from "./components/CloudinaryImage";
 import { images } from "./components/media/images";
+import ReviewsSection from "./components/reviews/ReviewSection";
 
 const title = "Welcome to Sherayah's";
 const title2 = "Mobile Body Massage";
@@ -288,33 +289,40 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="px-4 sm:px-6 lg:px-12 pt-6">
-        {/* Header */}
-        <div className="mb-6 text-center">
-          <h2
-            className={`text-2xl sm:text-3xl font-bold text-gray-800 ${playfairBold.className}`}
-          >
-            Gallery
-          </h2>
-          <p
-            className={`mt-2 text-gray-600 text-sm sm:text-base sm:mx-0 ${playfairRegular.className}`}
-          >
-            Explore our collection of images and videos showcasing our latest
-            projects and highlights.
-          </p>
-        </div>
-        <Carousel items={carouselImages} />
+      <div className="relative px-4 sm:px-6 lg:px-12 pt-10 pb-14 overflow-hidden bg-white">
+        {/* subtle background wash to match the site’s soft aesthetic */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#bee5d7]/10 via-white to-transparent pointer-events-none" />
 
-        {/* Optional captions or description under carousel */}
-        <div className="mt-2 text-center">
-          <p
-            className={`text-gray-500 text-sm sm:text-base ${playfairRegular.className}`}
-          >
-            Swipe or click the arrows to navigate through the gallery.
-          </p>
-        </div>
+        <div className="relative z-10">
+          {/* Header */}
+          <div className="mb-6 text-center">
+            <p
+              className={`text-[56px] sm:text-[72px] text-[#2c3e50] ${cookie.className}`}
+            >
+              Gallery
+            </p>
+            <p
+              className={`mt-2 text-gray-600 text-sm sm:text-base mx-5 sm:mx-0 ${playfairRegular.className}`}
+            >
+              Explore our collection of images and videos showcasing our latest
+              projects and highlights.
+            </p>
+          </div>
 
-        <div className="border-b-2 border-gray-200 mt-10 mx-6 sm:mx-24"></div>
+          <Carousel items={carouselImages} />
+
+          {/* Caption */}
+          <div className="mt-3 text-center">
+            <p
+              className={`text-gray-500 text-sm sm:text-base ${playfairRegular.className}`}
+            >
+              Swipe or click the arrows to navigate through the gallery.
+            </p>
+          </div>
+
+          {/* Premium divider */}
+          <div className="mt-12 mx-6 sm:mx-24 h-[2px] bg-gradient-to-r from-transparent via-[#405d3f]/40 to-transparent" />
+        </div>
       </div>
 
       <div className="w-full flex flex-col lg:flex-row justify-center items-start relative z-10 px-4 lg:px-0">
@@ -403,6 +411,7 @@ export default function Home() {
           </Link>
         </div>
       </div>
+      <ReviewsSection />
     </main>
   );
 }

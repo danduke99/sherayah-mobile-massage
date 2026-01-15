@@ -91,7 +91,7 @@ export default function Carousel({
           <AnimatePresence initial={false} custom={direction}>
             <motion.div
               key={currentIndex}
-              className="flex w-full justify-center gap-4 sm:gap-6 lg:gap-10"
+              className="flex w-full flex-none justify-center gap-4 sm:gap-6 lg:gap-10 will-change-transform transform-gpu"
               custom={direction}
               variants={variants}
               initial="enter"
@@ -102,7 +102,7 @@ export default function Carousel({
                 <motion.div
                   key={item.id}
                   whileHover={{ scale: 1.02 }}
-                  className="rounded-3xl overflow-hidden bg-white backdrop-blur-sm shadow"
+                  className="rounded-3xl overflow-hidden bg-white backdrop-blur-sm shadow flex-none"
                 >
                   {item.type === "image" ? (
                     <CloudinaryImage

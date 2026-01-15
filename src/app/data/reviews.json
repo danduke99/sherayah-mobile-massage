@@ -1,0 +1,18 @@
+[
+  {
+    "id": "rev_001",
+    "name": "Jordan",
+    "rating": 5,
+    "comment": "Very relaxing session. Professional and attentive.",
+    "service": "Deep Tissue",
+    "createdAt": "2026-01-15T10:00:00.000Z"
+  },
+  {
+    "id": "rev_002",
+    "name": "Sam",
+    "rating": 5,
+    "comment": "Exactly what I needed after a long week. Highly recommend.",
+    "service": "Swedish",
+    "createdAt": "2026-01-14T18:22:00.000Z"
+  }
+]
