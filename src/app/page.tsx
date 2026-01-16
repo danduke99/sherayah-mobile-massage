@@ -325,7 +325,7 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="w-full flex flex-col lg:flex-row justify-center items-start relative z-10 px-4 lg:px-0">
+      <div className="w-full flex flex-col bg-transparent lg:flex-row justify-center items-start relative z-10 px-4 lg:px-0">
         {/* LEFT: logo/leaf (desktop only) */}
         <div className="hidden lg:flex w-full lg:w-[40%] justify-center items-start relative z-10">
           <div className="relative w-full max-w-[520px] h-[520px]">
@@ -386,7 +386,7 @@ export default function Home() {
         </div>
 
         {/* RIGHT: text (full width on mobile, 60% on desktop) */}
-        <div className="w-full lg:w-[60%] bg-white flex flex-col justify-center items-center text-center lg:text-left lg:items-start z-20 lg:mx-5 py-6 lg:py-0">
+        <div className="w-full h-96 lg:w-[60%] bg-transparent flex flex-col justify-center items-center text-center lg:text-left lg:items-start z-20 lg:mx-5 py-6 lg:pl-15 lg:py-0">
           <p
             className={`text-[#2c3e50] ${cookie.className} text-[44px] sm:text-[56px] lg:text-[80px] leading-tight text-center lg:text-start`}
           >

@@ -115,10 +115,8 @@ export default function ReviewsSection() {
 
   return (
     <section className="relative w-full py-10 px-4 sm:px-6 lg:px-12 overflow-hidden bg-[#f6fbf8]">
-      {/* Soft background wash */}
       <div className="absolute inset-0 bg-gradient-to-b from-[#bee5d7]/60 via-white to-[#bee5d7]/40 pointer-events-none" />
 
-      {/* Animated glow accents */}
       <motion.div
         className="absolute -top-24 left-1/2 -translate-x-1/2 w-[900px] h-[900px] rounded-full bg-[#e7d882]/15 blur-3xl pointer-events-none"
         initial={{ opacity: 0.6, scale: 1 }}
@@ -132,11 +130,10 @@ export default function ReviewsSection() {
         transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
       />
 
-      {/* Decorative botanical images (subtle) */}
       <motion.div
-        className="absolute -top-28 -right-10 sm:right-0 pointer-events-none select-none"
+        className="absolute -top-28 -left-10 sm:left-0 pointer-events-none select-none"
         initial={{ y: 0, opacity: 1 }}
-        animate={{ y: [0, 10, 0], opacity: [0.18, 0.28, 0.18] }}
+        animate={{ y: [0, 10, 0], opacity: [0.78, 0.58, 0.78] }}
         transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
       >
         <CloudinaryImage
@@ -149,9 +146,9 @@ export default function ReviewsSection() {
       </motion.div>
 
       <motion.div
-        className="absolute -bottom-10 -left-10 sm:left-0 pointer-events-none select-none"
+        className="absolute -bottom-10 -right-10 sm:right-0 pointer-events-none select-none"
         initial={{ y: 0, opacity: 0.38 }}
-        animate={{ y: [0, -10, 0], opacity: [0.14, 0.24, 0.14] }}
+        animate={{ y: [0, -10, 0], opacity: [0.74, 0.54, 0.74] }}
         transition={{ duration: 11, repeat: Infinity, ease: "easeInOut" }}
       >
         <CloudinaryImage

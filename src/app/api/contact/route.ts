@@ -10,7 +10,7 @@ export async function POST(request: Request) {
 
     await resend.emails.send({
       from: 'onboarding@resend.dev',
-      to: 'sysdev@carib-premier.com',
+      to: 'info@sherayahmobile.com',
       subject: `Appointment Request for ${name}`,
       text: `Name: ${name}\nEmail: ${email}\nMessage:\n${message}`
     });
