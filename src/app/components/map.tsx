@@ -10,6 +10,8 @@ export type Service = {
   title: string;
   imageKey: ImageKey;
   description: string;
+  price: string;
+  duration: string;
 };
 
 export const services: Service[] = [
@@ -17,46 +19,64 @@ export const services: Service[] = [
     title: "Swedish Massage",
     imageKey: "swedish",
     description: "Gentle, flowing strokes that promote relaxation and reduce tension.",
+    price: "$XX",
+    duration: "XX min",
   },
   {
     title: "Head, Neck, Shoulder Massage",
     imageKey: "neck",
     description: "Relieve built-up stress and tension in the upper body.",
+    price: "$XX",
+    duration: "XX min",
   },
   {
     title: "Foot Massage",
     imageKey: "foot",
     description: "Soothe tired feet and improve circulation with targeted pressure.",
+    price: "$XX",
+    duration: "XX min",
   },
   {
     title: "Aromatic Massage",
     imageKey: "massage5",
     description: "Enhance well-being with therapeutic essential oils and soft touch.",
+    price: "$XX",
+    duration: "XX min",
   },
   {
     title: "Hot Oil Massage",
     imageKey: "hotOil",
     description: "Melt away stress with nourishing, warm oils and deep strokes.",
+    price: "$XX",
+    duration: "XX min",
   },
   {
     title: "Relax Massage",
     imageKey: "massage4",
     description: "Experience tranquility through smooth and calming massage therapy.",
+    price: "$XX",
+    duration: "XX min",
   },
   {
     title: "Chair Massage",
     imageKey: "chair", // IMPORTANT: prefer consistent casing; update images.ts accordingly
     description: "Quick stress relief focused on your back, neck, and shoulders.",
+    price: "$XX",
+    duration: "XX min",
   },
   {
     title: "Bamboo Massage",
     imageKey: "bamboo",
     description: "Deep tissue work using warm bamboo rods for intense relief.",
+    price: "$XX",
+    duration: "XX min",
   },
   {
     title: "Hot Stone Massage",
     imageKey: "stone",
     description: "Feel your muscles unwind as heated stones ease tightness.",
+    price: "$XX",
+    duration: "XX min",
   },
 ];
 

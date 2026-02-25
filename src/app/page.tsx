@@ -7,6 +7,7 @@ import Carousel from "./components/Carousel";
 import CloudinaryImage from "./components/CloudinaryImage";
 import { images } from "./components/media/images";
 import ReviewsSection from "./components/reviews/ReviewSection";
+import { useState } from "react";
 
 const title = "Welcome to Sherayah's";
 const title2 = "Mobile Body Massage";
@@ -16,6 +17,7 @@ export default function Home() {
   const titleLetters = title.split("");
   const titleLetters2 = title2.split("");
   const titleLettersLg = titleLg.split("");
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
     <main className="flex flex-col overflow-hidden">
@@ -245,46 +247,85 @@ export default function Home() {
           </div>
 
           {/* Services Grid */}
-          <div className="mb-6 mx-6 max-w-7xl flex flex-col gap-4 overflow-y-auto lg:overflow-visible lg:flex-row lg:flex-wrap lg:gap-x-6 lg:gap-y-6">
-            {services.map((service, index) => (
-              <div
-                key={index}
-                className="flex flex-row lg:flex-col rounded-lg bg-white text-surface shadow-lg text-black h-36 lg:h-auto w-full lg:flex-[1_1_30%]"
-              >
-                {/* Image */}
-                <div
-                  className="w-36 h-36 lg:w-full lg:h-52 flex-shrink-0 
-        rounded-l-lg rounded-bl-lg rounded-t-none rounded-r-none rounded-b-none 
-        lg:rounded-l-none lg:rounded-t-lg lg:rounded-tr-lg lg:rounded-tl-lg overflow-hidden"
-                >
-                  <CloudinaryImage
-                    src={images[service.imageKey]}
-                    alt={service.title}
-                    width={600}
-                    height={420}
-                    className={`w-full h-full ${
-                      service.title === "Chair Massage"
-                        ? "object-top"
-                        : "object-cover"
-                    }`}
-                  />
-                </div>
+          <div className="mb-6 mx-6 max-w-7xl flex flex-col gap-4 overflow-y-auto lg:overflow-visible lg:flex-row lg:flex-wrap lg:gap-x-6 lg:gap-y-6 lg:items-start">
+            {services.map((service, index) => {
+              const isOpen = openIndex === index;
 
-                {/* Text Content */}
-                <div className="flex flex-col justify-center lg:justify-start p-4">
-                  <h3
-                    className={`text-xl font-semibold ${playfairBold.className}`}
+              return (
+                <button
+                  key={index}
+                  type="button"
+                  onClick={() => setOpenIndex(isOpen ? null : index)}
+                  aria-expanded={isOpen}
+                  className="text-left flex flex-row lg:flex-col rounded-lg bg-white text-surface shadow-lg text-black h-36 lg:h-auto lg:self-start w-full lg:flex-[1_1_30%] hover:shadow-xl transition-shadow focus:outline-none focus:ring-2 focus:ring-black/30"
+                >
+                  {/* Image */}
+                  <div
+                    className="w-36 h-36 lg:w-full lg:h-52 flex-shrink-0 
+              rounded-l-lg rounded-bl-lg rounded-t-none rounded-r-none rounded-b-none 
+              lg:rounded-l-none lg:rounded-t-lg lg:rounded-tr-lg lg:rounded-tl-lg overflow-hidden"
                   >
-                    {service.title}
-                  </h3>
-                  <p
-                    className={`mt-2 text-md text-gray-600 ${playfairRegular.className}`}
-                  >
-                    {service.description}
-                  </p>
-                </div>
-              </div>
-            ))}
+                    <CloudinaryImage
+                      src={images[service.imageKey]}
+                      alt={service.title}
+                      width={600}
+                      height={420}
+                      className={`w-full h-full ${service.title === "Chair Massage" ? "object-top" : "object-cover"
+                        }`}
+                    />
+                  </div>
+
+                  {/* Text Content */}
+                  <div className="flex flex-col justify-center lg:justify-start p-4 w-full">
+                    <div className="flex items-start justify-between gap-3">
+                      <h3 className={`text-xl font-semibold ${playfairBold.className}`}>
+                        {service.title}
+                      </h3>
+
+                      {/* little indicator */}
+                      <span className="text-sm text-gray-500">
+                        {isOpen ? "Hide" : "Details"}
+                      </span>
+                    </div>
+
+                    <p className={`mt-2 text-md text-gray-600 ${playfairRegular.className}`}>
+                      {service.description}
+                    </p>
+
+                    {/* ✅ Expandable Details */}
+                    <div
+                      className={`grid transition-all duration-200 ${isOpen ? "grid-rows-[1fr] mt-3" : "grid-rows-[0fr] mt-0"
+                        }`}
+                    >
+                      <div className="overflow-hidden">
+                        <div className="rounded-md bg-gray-50 border border-gray-200 p-3">
+                          <div className="flex items-center justify-between text-sm">
+                            <span className="text-gray-600">Duration</span>
+                            <span className="font-medium text-gray-900">
+                              {service.duration}
+                            </span>
+                          </div>
+                          <div className="flex items-center justify-between text-sm mt-2">
+                            <span className="text-gray-600">Price</span>
+                            <span className="font-medium text-gray-900">
+                              {service.price}
+                            </span>
+                          </div>
+
+                          {/* optional CTA */}
+                          <div className="mt-3">
+                            <span className={`w-full flex justify-center align-center hover:cursor-pointer bg-[#82a687] rounded-2xl text-white py-1 px-3 ${playfairRegular.className}`}>
+                              Book this service
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </button>
+              );
+            })}
           </div>
         </div>
       </div>
