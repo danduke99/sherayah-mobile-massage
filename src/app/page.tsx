@@ -244,86 +244,128 @@ export default function Home() {
             <div className={`text-[76px] text-[#2c3e50] ${cookie.className}`}>
               Our Services
             </div>
+            <div className={`${playfairRegular.className} absolute top-44 text-[18px] text-[#2c3e50] underline`}>Click on a service to see more details</div>
           </div>
 
           {/* Services Grid */}
-          <div className="mb-6 mx-6 max-w-7xl flex flex-col gap-4 overflow-y-auto lg:overflow-visible lg:flex-row lg:flex-wrap lg:gap-x-6 lg:gap-y-6 lg:items-start">
+          <div className="mb-6 mx-6 max-w-7xl flex flex-col gap-4 overflow-y-auto px-1 py-1 lg:overflow-visible lg:flex-row lg:flex-wrap lg:gap-x-6 lg:gap-y-6 lg:items-start">
             {services.map((service, index) => {
               const isOpen = openIndex === index;
 
               return (
-                <button
+                <div
                   key={index}
-                  type="button"
                   onClick={() => setOpenIndex(isOpen ? null : index)}
                   aria-expanded={isOpen}
-                  className="text-left flex flex-row lg:flex-col rounded-lg bg-white text-surface shadow-lg text-black h-36 lg:h-auto lg:self-start w-full lg:flex-[1_1_30%] hover:shadow-xl transition-shadow focus:outline-none focus:ring-2 focus:ring-black/30"
+                  className={`
+    text-left
+    flex flex-col md:flex-row lg:flex-col
+    rounded-lg bg-white text-surface shadow-lg text-black
+    w-full lg:flex-[1_1_30%] lg:self-start
+    transition-all duration-300
+    md:hover:shadow-xl
+    focus:outline-none focus:ring-2 focus:ring-black/30
+    ${isOpen ? "h-auto" : "h-auto md:h-36 lg:h-auto"}
+  `}
                 >
                   {/* Image */}
                   <div
-                    className="w-36 h-36 lg:w-full lg:h-52 flex-shrink-0 
-              rounded-l-lg rounded-bl-lg rounded-t-none rounded-r-none rounded-b-none 
-              lg:rounded-l-none lg:rounded-t-lg lg:rounded-tr-lg lg:rounded-tl-lg overflow-hidden"
+                    className="
+    w-full h-48
+    md:w-36 md:h-auto
+    lg:w-full lg:h-52
+    flex-shrink-0 overflow-hidden
+    rounded-t-lg
+    md:rounded-l-lg md:rounded-tr-none md:rounded-bl-lg
+    lg:rounded-t-lg lg:rounded-bl-none
+  "
                   >
                     <CloudinaryImage
                       src={images[service.imageKey]}
                       alt={service.title}
                       width={600}
                       height={420}
-                      className={`w-full h-full ${service.title === "Chair Massage" ? "object-top" : "object-cover"
-                        }`}
+                      className={`w-full h-full transition-transform duration-500 ease-in-out ${service.title === "Chair Massage" ? "object-top" : "object-cover"
+                        } ${isOpen ? "scale-105" : "scale-100"} md:group-hover:scale-105`}
                     />
                   </div>
 
                   {/* Text Content */}
-                  <div className="flex flex-col justify-center lg:justify-start p-4 w-full">
-                    <div className="flex items-start justify-between gap-3">
-                      <h3 className={`text-xl font-semibold ${playfairBold.className}`}>
-                        {service.title}
-                      </h3>
+                  <div className="flex flex-col p-4 w-full min-w-0">
+                    <div
+                      className={`transition-all duration-300 ease-in-out ${!isOpen ? "md:py-4 lg:py-0" : "py-0"
+                        }`}
+                    >
+                      <div className="flex items-start justify-between gap-3">
+                        <h3 className={`text-xl font-semibold ${playfairBold.className}`}>
+                          {service.title}
+                        </h3>
 
-                      {/* little indicator */}
-                      <span className="text-sm text-gray-500">
-                        {isOpen ? "Hide" : "Details"}
-                      </span>
+                        <span
+                          className={`flex items-center justify-center transition-transform duration-300 ${isOpen ? "rotate-180" : ""
+                            }`}
+                        >
+                          <svg
+                            className="w-4 h-4 text-gray-500"
+                            fill="none"
+                            stroke="black"
+                            strokeWidth="4"
+                            viewBox="0 0 24 24"
+                          >
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                          </svg>
+                        </span>
+                      </div>
+
+                      <p className={`mt-2 text-md text-gray-600 ${playfairRegular.className}`}>
+                        {service.description}
+                      </p>
                     </div>
 
-                    <p className={`mt-2 text-md text-gray-600 ${playfairRegular.className}`}>
-                      {service.description}
-                    </p>
-
-                    {/* ✅ Expandable Details */}
+                    {/* Expandable Details */}
                     <div
-                      className={`grid transition-all duration-200 ${isOpen ? "grid-rows-[1fr] mt-3" : "grid-rows-[0fr] mt-0"
+                      className={`grid transition-all duration-300 ease-in-out ${isOpen ? "grid-rows-[1fr] mt-3 opacity-100" : "grid-rows-[0fr] mt-0 opacity-0"
                         }`}
                     >
                       <div className="overflow-hidden">
-                        <div className="rounded-md bg-gray-50 border border-gray-200 p-3">
-                          <div className="flex items-center justify-between text-sm">
-                            <span className="text-gray-600">Duration</span>
-                            <span className="font-medium text-gray-900">
-                              {service.duration}
-                            </span>
-                          </div>
-                          <div className="flex items-center justify-between text-sm mt-2">
-                            <span className="text-gray-600">Price</span>
-                            <span className="font-medium text-gray-900">
-                              {service.price}
-                            </span>
+                        <div className="rounded-md bg-gray-50 border border-gray-200 pb-3 px-3 pt-1">
+                          <div className={`${cookie.className} text-4xl flex justify-center`}>
+                            Duration and Prices
                           </div>
 
-                          {/* optional CTA */}
+                          <div className="space-y-2">
+                            {service.options.map((option, optionIndex) => (
+                              <div
+                                key={optionIndex}
+                                className="rounded-md border border-gray-200 bg-white px-3 py-2"
+                              >
+                                <div className="grid grid-cols-[1fr_1fr_auto] items-center gap-4 text-sm">
+                                  <span className="font-medium text-gray-900">{option.label}</span>
+
+                                  <span className="text-gray-600 text-right w-20">
+                                    {option.duration}
+                                  </span>
+
+                                  <span className="font-semibold text-gray-900 text-right w-16">
+                                    {option.price}
+                                  </span>
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+
                           <div className="mt-3">
-                            <span className={`w-full flex justify-center align-center hover:cursor-pointer bg-[#82a687] rounded-2xl text-white py-1 px-3 ${playfairRegular.className}`}>
+                            <span
+                              className={`w-full flex justify-center items-center hover:cursor-pointer bg-[#82a687] hover:shadow-md hover:bg-[#405d3f] rounded-2xl text-white py-2 px-3 ${playfairRegular.className}`}
+                            >
                               Book this service
                             </span>
                           </div>
                         </div>
                       </div>
                     </div>
-
                   </div>
-                </button>
+                </div>
               );
             })}
           </div>

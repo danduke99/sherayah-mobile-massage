@@ -5,13 +5,17 @@ export type CarouselItem =
   | { id: number; type: "image"; srcKey: ImageKey; alt?: string }
   | { id: number; type: "video"; srcKey: VideoKey; alt?: string };
 
+export type ServiceOption = {
+  label: string;
+  duration: string;
+  price: string;
+};
+
 export type Service = {
-  [x: string]: string;
   title: string;
   imageKey: ImageKey;
   description: string;
-  price: string;
-  duration: string;
+  options: ServiceOption[];
 };
 
 export const services: Service[] = [
@@ -19,64 +23,88 @@ export const services: Service[] = [
     title: "Swedish Massage",
     imageKey: "swedish",
     description: "Gentle, flowing strokes that promote relaxation and reduce tension.",
-    price: "$XX",
-    duration: "XX min",
+    options: [
+      { label: "30 Minutes", duration: "30 min", price: "$65" },
+      { label: "60 Minutes", duration: "60 min", price: "$110" },
+    ],
   },
   {
-    title: "Head, Neck, Shoulder Massage",
+    title: "Back, Neck, Shoulder Massage",
     imageKey: "neck",
     description: "Relieve built-up stress and tension in the upper body.",
-    price: "$XX",
-    duration: "XX min",
+    options: [
+      { label: "30 Minutes", duration: "30 min", price: "$50" },
+      { label: "60 Minutes", duration: "60 min", price: "$100" },
+    ],
   },
   {
     title: "Foot Massage",
     imageKey: "foot",
     description: "Soothe tired feet and improve circulation with targeted pressure.",
-    price: "$XX",
-    duration: "XX min",
+    options: [
+      { label: "30 Minutes", duration: "30 min", price: "$65" },
+    ],
   },
   {
-    title: "Aromatic Massage",
+    title: "Aromatherapy Massage",
     imageKey: "massage5",
     description: "Enhance well-being with therapeutic essential oils and soft touch.",
-    price: "$XX",
-    duration: "XX min",
+    options: [
+      { label: "60 Minutes", duration: "60 min", price: "$120" },
+    ],
   },
   {
-    title: "Hot Oil Massage",
+    title: "Deep Tissue Massage",
     imageKey: "hotOil",
-    description: "Melt away stress with nourishing, warm oils and deep strokes.",
-    price: "$XX",
-    duration: "XX min",
+    description: "Target deep muscle tension with firm pressure designed to release tightness and restore mobility.",
+    options: [
+      { label: "60 Minutes", duration: "60 min", price: "$130" },
+      { label: "90 Minutes", duration: "90 min", price: "$150" },
+    ],
   },
   {
     title: "Relax Massage",
     imageKey: "massage4",
     description: "Experience tranquility through smooth and calming massage therapy.",
-    price: "$XX",
-    duration: "XX min",
+    options: [
+      { label: "60 Minutes", duration: "60 min", price: "$120" },
+      { label: "90 Minutes", duration: "90 min", price: "$130" },
+    ],
   },
   {
     title: "Chair Massage",
-    imageKey: "chair", // IMPORTANT: prefer consistent casing; update images.ts accordingly
+    imageKey: "chair",
     description: "Quick stress relief focused on your back, neck, and shoulders.",
-    price: "$XX",
-    duration: "XX min",
+    options: [
+      { label: "50 Minutes", duration: "50 min", price: "$75" },
+    ],
   },
   {
     title: "Bamboo Massage",
     imageKey: "bamboo",
     description: "Deep tissue work using warm bamboo rods for intense relief.",
-    price: "$XX",
-    duration: "XX min",
+    options: [
+      { label: "60 Minutes", duration: "60 min", price: "$150" },
+      { label: "90 Minutes", duration: "90 min", price: "$160" },
+    ],
   },
   {
     title: "Hot Stone Massage",
     imageKey: "stone",
     description: "Feel your muscles unwind as heated stones ease tightness.",
-    price: "$XX",
-    duration: "XX min",
+    options: [
+      { label: "60 Minutes", duration: "60 min", price: "$150" },
+      { label: "90 Minutes", duration: "90 min", price: "$160" },
+    ],
+  },
+  {
+    title: "Couple Massage",
+    imageKey: "massage5",
+    description: "Share a relaxing massage experience side by side with your partner.",
+    options: [
+      { label: "60 Minutes", duration: "60 min", price: "$260" },
+      { label: "90 Minutes", duration: "90 min", price: "$270" },
+    ],
   },
 ];
 
