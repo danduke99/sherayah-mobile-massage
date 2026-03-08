@@ -6,9 +6,8 @@ The site is designed with a relaxing, inviting aesthetic using soft green tones 
 ✨ Features
 
 - 📱 **Responsive design** (optimized for desktops and mobile devices)  
-- 🎨 **Custom styling** with Tailwind CSS (soft greens, Butler + script font for branding)  
-- ⚡ **Next.js + TypeScript** for performance, reliability, and type safety  
-- 🔌 **API-ready architecture** for future booking/contact integrations  
+- 🎨 **Custom styling** with Tailwind CSS (soft greens, Playfair + Cookie fonts for branding)  
+- ⚡ **Next.js + TypeScript** for performance, reliability, and type safety   
 - 🖼️ **Pages included**:
   - **Home** – welcoming landing page with service highlights  
   - **About** – background and philosophy of the massage parlour  
