@@ -1,5 +1,5 @@
 import type { ImageKey } from "@/app/components/media/images";
-import type { VideoKey } from "@/app/components/media/video"; // NOTE: videos (plural) is recommended
+import type { VideoKey } from "@/app/components/media/video";
 
 export type CarouselItem =
   | { id: number; type: "image"; srcKey: ImageKey; alt?: string }
@@ -7,11 +7,12 @@ export type CarouselItem =
 
 export type ServiceOption = {
   label: string;
-  duration: string;
-  price: string;
+  duration: 60 | 90;
+  price: number;
 };
 
 export type Service = {
+  id: string;
   title: string;
   imageKey: ImageKey;
   description: string;
@@ -20,90 +21,93 @@ export type Service = {
 
 export const services: Service[] = [
   {
+    id: "swedish-massage",
     title: "Swedish Massage",
     imageKey: "swedish",
     description: "Gentle, flowing strokes that promote relaxation and reduce tension.",
     options: [
-      { label: "30 Minutes", duration: "30 min", price: "$65" },
-      { label: "60 Minutes", duration: "60 min", price: "$110" },
+      { label: "60 Minutes", duration: 60, price: 100 },
+      { label: "90 Minutes", duration: 90, price: 145 },
     ],
   },
   {
-    title: "Back, Neck, Shoulder Massage",
+    id: "head-neck-shoulder-massage",
+    title: "Head, Neck, Shoulder Massage",
     imageKey: "neck",
     description: "Relieve built-up stress and tension in the upper body.",
     options: [
-      { label: "30 Minutes", duration: "30 min", price: "$50" },
-      { label: "60 Minutes", duration: "60 min", price: "$100" },
+      { label: "60 Minutes", duration: 60, price: 90 },
+      { label: "90 Minutes", duration: 90, price: 130 },
     ],
   },
   {
+    id: "foot-massage",
     title: "Foot Massage",
     imageKey: "foot",
     description: "Soothe tired feet and improve circulation with targeted pressure.",
     options: [
-      { label: "30 Minutes", duration: "30 min", price: "$65" },
+      { label: "60 Minutes", duration: 60, price: 85 },
+      { label: "90 Minutes", duration: 90, price: 125 },
     ],
   },
   {
-    title: "Aromatherapy Massage",
+    id: "aromatic-massage",
+    title: "Aromatic Massage",
     imageKey: "massage5",
     description: "Enhance well-being with therapeutic essential oils and soft touch.",
     options: [
-      { label: "60 Minutes", duration: "60 min", price: "$120" },
+      { label: "60 Minutes", duration: 60, price: 105 },
+      { label: "90 Minutes", duration: 90, price: 150 },
     ],
   },
   {
-    title: "Deep Tissue Massage",
+    id: "hot-oil-massage",
+    title: "Hot Oil Massage",
     imageKey: "hotOil",
-    description: "Target deep muscle tension with firm pressure designed to release tightness and restore mobility.",
+    description: "Melt away stress with nourishing, warm oils and deep strokes.",
     options: [
-      { label: "60 Minutes", duration: "60 min", price: "$130" },
-      { label: "90 Minutes", duration: "90 min", price: "$150" },
+      { label: "60 Minutes", duration: 60, price: 110 },
+      { label: "90 Minutes", duration: 90, price: 155 },
     ],
   },
   {
+    id: "relax-massage",
     title: "Relax Massage",
     imageKey: "massage4",
     description: "Experience tranquility through smooth and calming massage therapy.",
     options: [
-      { label: "60 Minutes", duration: "60 min", price: "$120" },
-      { label: "90 Minutes", duration: "90 min", price: "$130" },
+      { label: "60 Minutes", duration: 60, price: 95 },
+      { label: "90 Minutes", duration: 90, price: 140 },
     ],
   },
   {
+    id: "chair-massage",
     title: "Chair Massage",
     imageKey: "chair",
     description: "Quick stress relief focused on your back, neck, and shoulders.",
     options: [
-      { label: "50 Minutes", duration: "50 min", price: "$75" },
+      { label: "60 Minutes", duration: 60, price: 80 },
+      { label: "90 Minutes", duration: 90, price: 120 },
     ],
   },
   {
+    id: "bamboo-massage",
     title: "Bamboo Massage",
     imageKey: "bamboo",
     description: "Deep tissue work using warm bamboo rods for intense relief.",
     options: [
-      { label: "60 Minutes", duration: "60 min", price: "$150" },
-      { label: "90 Minutes", duration: "90 min", price: "$160" },
+      { label: "60 Minutes", duration: 60, price: 115 },
+      { label: "90 Minutes", duration: 90, price: 160 },
     ],
   },
   {
+    id: "hot-stone-massage",
     title: "Hot Stone Massage",
     imageKey: "stone",
     description: "Feel your muscles unwind as heated stones ease tightness.",
     options: [
-      { label: "60 Minutes", duration: "60 min", price: "$150" },
-      { label: "90 Minutes", duration: "90 min", price: "$160" },
-    ],
-  },
-  {
-    title: "Couple Massage",
-    imageKey: "massage5",
-    description: "Share a relaxing massage experience side by side with your partner.",
-    options: [
-      { label: "60 Minutes", duration: "60 min", price: "$260" },
-      { label: "90 Minutes", duration: "90 min", price: "$270" },
+      { label: "60 Minutes", duration: 60, price: 120 },
+      { label: "90 Minutes", duration: 90, price: 170 },
     ],
   },
 ];

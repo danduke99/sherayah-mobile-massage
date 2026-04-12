@@ -1,4 +1,6 @@
 "use client";
+
+import { useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { cookie, playfairBold, playfairRegular } from "./styles/font/fonts";
@@ -7,17 +9,31 @@ import Carousel from "./components/Carousel";
 import CloudinaryImage from "./components/CloudinaryImage";
 import { images } from "./components/media/images";
 import ReviewsSection from "./components/reviews/ReviewSection";
-import { useState } from "react";
+import {
+  BookingProvider,
+  useBooking,
+} from "@/app/components/booking/BookingContext";
+import BookingDrawer from "@/app/components/booking/BookingDrawer";
 
 const title = "Welcome to Sherayah's";
 const title2 = "Mobile Body Massage";
 const titleLg = "Welcome to Sherayah's Mobile Body Massage";
 
 export default function Home() {
+  return (
+    <BookingProvider>
+      <HomeContent />
+      <BookingDrawer />
+    </BookingProvider>
+  );
+}
+
+function HomeContent() {
   const titleLetters = title.split("");
   const titleLetters2 = title2.split("");
   const titleLettersLg = titleLg.split("");
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const { openBooking } = useBooking();
 
   return (
     <main className="flex flex-col overflow-hidden">
@@ -36,7 +52,6 @@ export default function Home() {
         />
 
         <div className="z-10">
-          {/* Main animated heading */}
           <motion.p
             className={`text-5xl sm:text-6xl lg:hidden ${cookie.className} text-[#e7d882] text-center mr-10 sm:mr-40`}
             initial="hidden"
@@ -118,7 +133,6 @@ export default function Home() {
             ))}
           </motion.p>
 
-          {/* Subtitle text */}
           <motion.p
             className={`mt-4 text-base ${playfairRegular.className} text-white mx-5 text-center lg:text-xl`}
             initial={{ opacity: 0, y: 30 }}
@@ -129,7 +143,6 @@ export default function Home() {
             calming space.
           </motion.p>
 
-          {/* CTA Button */}
           <Link href="/contact" className="lg:mt-10">
             <motion.button
               className={`bg-[#405d3f] text-white text-lg px-8 py-2 lg:py-3 lg:px-16 lg:text-xl rounded-full mt-4 lg:mt-8 hover:bg-[#2e4c2d] transition ${playfairBold.className} block mx-auto`}
@@ -156,7 +169,6 @@ export default function Home() {
       </div>
 
       <div className="relative bg-[#bee5d7] flex flex-col items-center justify-center overflow-hidden">
-        {/* Decorative Images */}
         <CloudinaryImage
           src={images.orchid}
           alt="Orchid Right"
@@ -172,13 +184,10 @@ export default function Home() {
           height={0}
         />
 
-        {/* Top and bottom gradients */}
         <div className="absolute top-0 left-0 right-0 h-56 bg-gradient-to-b from-[#8cb692] to-transparent z-20 pointer-events-none" />
         <div className="absolute bottom-0 left-0 right-0 h-56 bg-gradient-to-t from-[#8cb692] to-transparent z-20 pointer-events-none" />
 
-        {/* Main Content */}
         <div className="relative z-30 flex flex-col justify-center items-center w-full">
-          {/* Title */}
           <div className="flex flex-col items-center justify-center">
             <svg
               width="75px"
@@ -211,173 +220,196 @@ export default function Home() {
                 strokeWidth="0.16"
               />
               <g id="SVGRepo_iconCarrier">
-                {" "}
-                <title>leaf [#15]</title> <desc>Created with Sketch.</desc>{" "}
-                <defs> </defs>{" "}
+                <title>leaf [#15]</title>
+                <desc>Created with Sketch.</desc>
+                <defs />
                 <g
                   id="Page-1"
                   strokeWidth="0.0002"
                   fill="none"
                   fillRule="evenodd"
                 >
-                  {" "}
                   <g
                     id="Dribbble-Light-Preview"
                     transform="translate(-180.000000, -8119.000000)"
                     fill="#405d3f"
                   >
-                    {" "}
                     <g id="icons" transform="translate(56.000000, 160.000000)">
-                      {" "}
                       <path
                         d="M136.231,7973 C135.469,7973 133.335,7972.944 131.549,7972.865 L135.121,7969.294 L138.021,7970.526 C138.369,7970.673 138.772,7970.595 139.039,7970.328 C139.504,7969.863 139.351,7969.076 138.746,7968.819 L136.535,7967.879 L139.316,7965.098 C139.707,7964.707 139.707,7964.074 139.316,7963.684 C138.926,7963.293 138.293,7963.293 137.902,7963.684 L136.578,7965.008 L135.806,7963.686 C135.487,7963.139 134.736,7963.042 134.287,7963.49 C133.977,7963.801 133.914,7964.282 134.136,7964.662 L135.164,7966.422 L130.137,7971.449 C130.056,7969.658 130,7967.53 130,7966.769 C130,7963.208 131.3,7961 137.769,7961 C138.617,7961 140.536,7961.079 141.846,7961.18 C141.934,7962.193 142,7963.513 142,7964.231 C142,7973 137.809,7973 136.231,7973 M143.609,7959.391 C142.703,7959.143 138.754,7959 137.769,7959 C131.822,7959 128,7960.822 128,7966.769 C128,7967.533 128.087,7971.278 128.241,7973.345 L124.293,7977.293 C123.902,7977.683 123.902,7978.317 124.293,7978.707 C124.684,7979.098 125.317,7979.098 125.707,7978.707 L129.655,7974.759 C131.722,7974.913 135.467,7975 136.231,7975 C142.179,7975 144,7970.178 144,7964.231 C144,7963.246 143.856,7960.297 143.609,7959.391"
                         id="leaf-[#15]"
-                      >
-                        {" "}
-                      </path>{" "}
-                    </g>{" "}
-                  </g>{" "}
-                </g>{" "}
+                      />
+                    </g>
+                  </g>
+                </g>
               </g>
             </svg>
 
             <div className={`text-[76px] text-[#2c3e50] ${cookie.className}`}>
               Our Services
             </div>
-            <div className={`${playfairRegular.className} absolute top-44 text-[18px] text-[#2c3e50] underline`}>Click on a service to see more details</div>
+
+            <div
+              className={`${playfairRegular.className} absolute top-44 text-[18px] text-[#2c3e50] underline`}
+            >
+              Click on a service to see more details
+            </div>
           </div>
 
-          {/* Services Grid */}
           <div className="mb-6 mx-6 max-w-7xl flex flex-col gap-4 overflow-y-auto px-1 py-1 lg:overflow-visible lg:flex-row lg:flex-wrap lg:gap-x-6 lg:gap-y-6 lg:items-start">
-            {services.map((service, index) => {
-              const isOpen = openIndex === index;
+  {services.map((service, index) => {
+    const isOpen = openIndex === index;
 
-              return (
-                <div
-                  key={index}
-                  onClick={() => setOpenIndex(isOpen ? null : index)}
-                  aria-expanded={isOpen}
-                  className={`
-    text-left
-    flex flex-col md:flex-row lg:flex-col
-    rounded-lg bg-white text-surface shadow-lg text-black
-    w-full lg:flex-[1_1_30%] lg:self-start
-    transition-all duration-300
-    md:hover:shadow-xl
-    focus:outline-none focus:ring-2 focus:ring-black/30
-    ${isOpen ? "h-auto" : "h-auto md:h-36 lg:h-auto"}
-  `}
+    return (
+      <div
+        key={service.id ?? index}
+        className="w-full lg:flex-[1_1_30%] lg:self-start"
+      >
+        <div
+          role="button"
+          tabIndex={0}
+          onClick={() => setOpenIndex(isOpen ? null : index)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              setOpenIndex(isOpen ? null : index);
+            }
+          }}
+          aria-expanded={isOpen}
+          className={`
+            w-full
+            text-left
+            flex flex-col md:flex-row lg:flex-col
+            rounded-lg bg-white text-surface shadow-lg text-black
+            transition-all duration-300
+            md:hover:shadow-xl
+            focus:outline-none focus:ring-2 focus:ring-black/30
+            cursor-pointer
+            ${isOpen ? "h-auto" : "h-auto md:h-36 lg:h-auto"}
+          `}
+        >
+          {/* Image */}
+          <div
+            className="
+              w-full h-48
+              md:w-36 md:h-auto
+              lg:w-full lg:h-52
+              flex-shrink-0 overflow-hidden
+              rounded-t-lg
+              md:rounded-l-lg md:rounded-tr-none md:rounded-bl-lg
+              lg:rounded-t-lg lg:rounded-bl-none
+            "
+          >
+            <CloudinaryImage
+              src={images[service.imageKey]}
+              alt={service.title}
+              width={600}
+              height={420}
+              className={`w-full h-full transition-transform duration-500 ease-in-out ${
+                service.title === "Chair Massage" ? "object-top" : "object-cover"
+              } ${isOpen ? "scale-105" : "scale-100"}`}
+            />
+          </div>
+
+          {/* Text Content */}
+          <div className="flex flex-col p-4 w-full min-w-0">
+            <div
+              className={`transition-all duration-300 ease-in-out ${
+                !isOpen ? "md:py-4 lg:py-0" : "py-0"
+              }`}
+            >
+              <div className="flex items-start justify-between gap-3">
+                <h3 className={`text-xl font-semibold ${playfairBold.className}`}>
+                  {service.title}
+                </h3>
+
+                <span
+                  className={`flex items-center justify-center transition-transform duration-300 ${
+                    isOpen ? "rotate-180" : ""
+                  }`}
                 >
-                  {/* Image */}
-                  <div
-                    className="
-    w-full h-48
-    md:w-36 md:h-auto
-    lg:w-full lg:h-52
-    flex-shrink-0 overflow-hidden
-    rounded-t-lg
-    md:rounded-l-lg md:rounded-tr-none md:rounded-bl-lg
-    lg:rounded-t-lg lg:rounded-bl-none
-  "
+                  <svg
+                    className="w-4 h-4 text-gray-500"
+                    fill="none"
+                    stroke="black"
+                    strokeWidth="4"
+                    viewBox="0 0 24 24"
                   >
-                    <CloudinaryImage
-                      src={images[service.imageKey]}
-                      alt={service.title}
-                      width={600}
-                      height={420}
-                      className={`w-full h-full transition-transform duration-500 ease-in-out ${service.title === "Chair Massage" ? "object-top" : "object-cover"
-                        } ${isOpen ? "scale-105" : "scale-100"} md:group-hover:scale-105`}
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M19 9l-7 7-7-7"
                     />
+                  </svg>
+                </span>
+              </div>
+
+              <p className={`mt-2 text-md text-gray-600 ${playfairRegular.className}`}>
+                {service.description}
+              </p>
+            </div>
+
+            {/* Expandable Details */}
+            <div
+              className={`grid transition-all duration-300 ease-in-out ${
+                isOpen
+                  ? "grid-rows-[1fr] mt-3 opacity-100"
+                  : "grid-rows-[0fr] mt-0 opacity-0"
+              }`}
+            >
+              <div className="overflow-hidden">
+                <div className="rounded-md bg-gray-50 border border-gray-200 pb-3 px-3 pt-1">
+                  <div className={`${cookie.className} text-4xl flex justify-center`}>
+                    Duration and Prices
                   </div>
 
-                  {/* Text Content */}
-                  <div className="flex flex-col p-4 w-full min-w-0">
-                    <div
-                      className={`transition-all duration-300 ease-in-out ${!isOpen ? "md:py-4 lg:py-0" : "py-0"
-                        }`}
-                    >
-                      <div className="flex items-start justify-between gap-3">
-                        <h3 className={`text-xl font-semibold ${playfairBold.className}`}>
-                          {service.title}
-                        </h3>
+                  <div className="space-y-2">
+                    {service.options.map((option, optionIndex) => (
+                      <div
+                        key={optionIndex}
+                        className="rounded-md border border-gray-200 bg-white px-3 py-2"
+                      >
+                        <div className="flex justify-between items-center gap-4 text-sm">
+                          <span className="font-medium text-gray-900">
+                            {option.label}
+                          </span>
 
-                        <span
-                          className={`flex items-center justify-center transition-transform duration-300 ${isOpen ? "rotate-180" : ""
-                            }`}
-                        >
-                          <svg
-                            className="w-4 h-4 text-gray-500"
-                            fill="none"
-                            stroke="black"
-                            strokeWidth="4"
-                            viewBox="0 0 24 24"
-                          >
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-                          </svg>
-                        </span>
-                      </div>
-
-                      <p className={`mt-2 text-md text-gray-600 ${playfairRegular.className}`}>
-                        {service.description}
-                      </p>
-                    </div>
-
-                    {/* Expandable Details */}
-                    <div
-                      className={`grid transition-all duration-300 ease-in-out ${isOpen ? "grid-rows-[1fr] mt-3 opacity-100" : "grid-rows-[0fr] mt-0 opacity-0"
-                        }`}
-                    >
-                      <div className="overflow-hidden">
-                        <div className="rounded-md bg-gray-50 border border-gray-200 pb-3 px-3 pt-1">
-                          <div className={`${cookie.className} text-4xl flex justify-center`}>
-                            Duration and Prices
-                          </div>
-
-                          <div className="space-y-2">
-                            {service.options.map((option, optionIndex) => (
-                              <div
-                                key={optionIndex}
-                                className="rounded-md border border-gray-200 bg-white px-3 py-2"
-                              >
-                                <div className="grid grid-cols-[1fr_1fr_auto] items-center gap-4 text-sm">
-                                  <span className="font-medium text-gray-900">{option.label}</span>
-
-                                  <span className="text-gray-600 text-right w-20">
-                                    {option.duration}
-                                  </span>
-
-                                  <span className="font-semibold text-gray-900 text-right w-16">
-                                    {option.price}
-                                  </span>
-                                </div>
-                              </div>
-                            ))}
-                          </div>
-
-                          <div className="mt-3">
-                            <span
-                              className={`w-full flex justify-center items-center hover:cursor-pointer bg-[#82a687] hover:shadow-md hover:bg-[#405d3f] rounded-2xl text-white py-2 px-3 ${playfairRegular.className}`}
-                            >
-                              Book this service
-                            </span>
-                          </div>
+                          <span className="font-semibold text-gray-900 text-right w-16">
+                            ${option.price}
+                          </span>
                         </div>
                       </div>
-                    </div>
+                    ))}
+                  </div>
+
+                  <div className="mt-3">
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        openBooking(service, 60);
+                      }}
+                      className={`w-full flex justify-center items-center hover:cursor-pointer bg-[#82a687] hover:shadow-md hover:bg-[#405d3f] rounded-2xl text-white py-2 px-3 transition ${playfairRegular.className}`}
+                    >
+                      Book this service
+                    </button>
                   </div>
                 </div>
-              );
-            })}
+              </div>
+            </div>
           </div>
+        </div>
+      </div>
+    );
+  })}
+</div>
         </div>
       </div>
 
       <div className="relative px-4 sm:px-6 lg:px-12 pt-10 pb-14 overflow-hidden bg-white">
-        {/* subtle background wash to match the site’s soft aesthetic */}
         <div className="absolute inset-0 bg-gradient-to-b from-[#bee5d7]/10 via-white to-transparent pointer-events-none" />
 
         <div className="relative z-10">
-          {/* Header */}
           <div className="mb-6 text-center">
             <p
               className={`text-[56px] sm:text-[72px] text-[#2c3e50] ${cookie.className}`}
@@ -394,7 +426,6 @@ export default function Home() {
 
           <Carousel items={carouselImages} />
 
-          {/* Caption */}
           <div className="mt-3 text-center">
             <p
               className={`text-gray-500 text-sm sm:text-base ${playfairRegular.className}`}
@@ -403,57 +434,53 @@ export default function Home() {
             </p>
           </div>
 
-          {/* Premium divider */}
           <div className="mt-12 mx-6 sm:mx-24 h-[2px] bg-gradient-to-r from-transparent via-[#405d3f]/40 to-transparent" />
         </div>
       </div>
 
       <div className="w-full flex flex-col bg-transparent lg:flex-row justify-center items-start relative z-10 px-4 lg:px-0">
-        {/* LEFT: logo/leaf (desktop only) */}
         <div className="hidden lg:flex w-full lg:w-[40%] justify-center items-start relative z-10">
           <div className="relative w-full max-w-[520px] h-[520px]">
-            {/* Decorative leaf */}
             <CloudinaryImage
               src={images.leaf2}
               alt="Background"
               width={600}
               height={600}
               className="
-          absolute
-          w-52 lg:w-48 xl:w-84
-          -rotate-[45deg] lg:-rotate-[45deg] xl:-rotate-[35deg]
-          opacity-70 z-10
-          object-contain
-          -left-14 lg:-left-16 xl:-left-20
-          bottom-10
-        "
+                absolute
+                w-52 lg:w-48 xl:w-84
+                -rotate-[45deg] lg:-rotate-[45deg] xl:-rotate-[35deg]
+                opacity-70 z-10
+                object-contain
+                -left-14 lg:-left-16 xl:-left-20
+                bottom-10
+              "
               priority
             />
 
-            {/* 3D Logo card */}
             <div
               className="
-          relative z-20
-          left-24
-          bottom-5
-          h-[380px] w-[380px]
-          xl:h-[460px] xl:w-[460px]
-          [perspective:1400px]
-        "
+                relative z-20
+                left-24
+                bottom-5
+                h-[380px] w-[380px]
+                xl:h-[460px] xl:w-[460px]
+                [perspective:1400px]
+              "
             >
               <div
                 className="
-            w-full h-full
-            rounded-full
-            border-4 border-[#405d3f]
-            bg-white/5
-            backdrop-blur-sm
-            shadow-[0_30px_80px_rgba(0,0,0,0.35)]
-            transform-gpu
-            transition-transform duration-700 ease-out
-            hover:scale-[1.08]
-            overflow-hidden
-          "
+                  w-full h-full
+                  rounded-full
+                  border-4 border-[#405d3f]
+                  bg-white/5
+                  backdrop-blur-sm
+                  shadow-[0_30px_80px_rgba(0,0,0,0.35)]
+                  transform-gpu
+                  transition-transform duration-700 ease-out
+                  hover:scale-[1.08]
+                  overflow-hidden
+                "
               >
                 <CloudinaryImage
                   src={images.threeD}
@@ -468,7 +495,6 @@ export default function Home() {
           </div>
         </div>
 
-        {/* RIGHT: text (full width on mobile, 60% on desktop) */}
         <div className="w-full h-96 lg:w-[60%] bg-transparent flex flex-col justify-center items-center text-center lg:text-left lg:items-start z-20 lg:mx-5 py-6 lg:pl-15 lg:py-0">
           <p
             className={`text-[#2c3e50] ${cookie.className} text-[44px] sm:text-[56px] lg:text-[80px] leading-tight text-center lg:text-start`}
@@ -494,6 +520,7 @@ export default function Home() {
           </Link>
         </div>
       </div>
+
       <ReviewsSection />
     </main>
   );
