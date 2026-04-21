@@ -2,7 +2,7 @@
 
 import React, { useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { services, type Service } from "../map";
+import { services } from "../map";
 import { useBooking } from "./BookingContext";
 import {
     cookie,
