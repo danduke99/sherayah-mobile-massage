@@ -9,9 +9,9 @@ import {
   playfairRegular,
   playfairSemiBold,
 } from "../../styles/font/fonts";
-import { services } from "../map";
 import CloudinaryImage from "../CloudinaryImage";
 import { images } from "../media/images";
+import { useServices } from "../services/useServices";
 
 type Review = {
   id: string;
@@ -19,10 +19,9 @@ type Review = {
   rating: number;
   comment: string;
   service?: string;
+  serviceId?: string;
   createdAt: string;
 };
-
-const SERVICES = services.map((s: { title: string }) => s.title);
 
 function formatDate(iso: string) {
   const d = new Date(iso);
@@ -35,12 +34,13 @@ function formatDate(iso: string) {
 }
 
 export default function ReviewsSection() {
+  const { services } = useServices();
   const [reviews, setReviews] = useState<Review[]>([]);
   const [loading, setLoading] = useState(true);
 
   // form state
   const [name, setName] = useState("");
-  const [service, setService] = useState<string>("");
+  const [serviceId, setServiceId] = useState<string>("");
   const [rating, setRating] = useState(5);
   const [comment, setComment] = useState("");
 
@@ -86,7 +86,7 @@ export default function ReviewsSection() {
           name,
           rating,
           comment,
-          service: service || undefined,
+          serviceId: serviceId || undefined,
         }),
       });
 
@@ -101,7 +101,7 @@ export default function ReviewsSection() {
       // "Thank you. Your review has been submitted and is pending approval."
       setSuccessMsg("Thank you. Your review has been submitted.");
       setName("");
-      setService("");
+      setServiceId("");
       setRating(5);
       setComment("");
 
@@ -114,7 +114,7 @@ export default function ReviewsSection() {
   }
 
   return (
-    <section className="relative w-full py-10 px-4 sm:px-6 lg:px-12 overflow-hidden bg-[#f6fbf8]">
+    <section className={`relative w-full py-10 px-4 sm:px-6 lg:px-12 overflow-hidden bg-[#f6fbf8] ${playfairRegular.className}`}>
       <div className="absolute inset-0 bg-gradient-to-b from-[#bee5d7]/60 via-white to-[#bee5d7]/40 pointer-events-none" />
 
       <motion.div
@@ -233,7 +233,7 @@ export default function ReviewsSection() {
                 reviews.slice(0, 6).map((r) => (
                   <div
                     key={r.id}
-                    className="rounded-2xl bg-gradient-to-br from-white/90 to-[#f2fbf6]/80 border border-[#82a687]/20 shadow-[0_8px_24px_rgba(64,93,63,0.12)] p-5"
+                    className="rounded-2xl bg-gradient-to-t from-[#e7d882]/30 via-white/90 to-[#bee5d7]/40 border border-[#82a687]/20 p-5"
                   >
                     <div className="flex items-start justify-between gap-4">
                       <div>
@@ -287,7 +287,7 @@ export default function ReviewsSection() {
                 <input
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="mt-1 w-full rounded-xl border border-gray-300/80 bg-white/80 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#82a687]"
+                  className={`mt-1 w-full rounded-xl border border-gray-300/80 bg-white/80 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#82a687] ${playfairRegular.className}`}
                   placeholder="Your name"
                   maxLength={60}
                   required
@@ -302,14 +302,14 @@ export default function ReviewsSection() {
                     Service (optional)
                   </label>
                   <select
-                    value={service}
-                    onChange={(e) => setService(e.target.value)}
-                    className="mt-1 w-full rounded-xl border border-gray-300/80 bg-white/80 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#82a687]"
+                    value={serviceId}
+                    onChange={(e) => setServiceId(e.target.value)}
+                    className={`mt-1 w-full rounded-xl border border-gray-300/80 bg-white/80 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#82a687] ${playfairRegular.className}`}
                   >
                     <option value="">Select a service (optional)</option>
-                    {SERVICES.map((s) => (
-                      <option key={s} value={s}>
-                        {s}
+                    {services.map((service) => (
+                      <option key={service.id} value={service.id}>
+                        {service.title}
                       </option>
                     ))}
                   </select>
@@ -336,7 +336,7 @@ export default function ReviewsSection() {
                 <textarea
                   value={comment}
                   onChange={(e) => setComment(e.target.value)}
-                  className="mt-1 w-full min-h-[120px] rounded-xl border border-gray-300/80 bg-white/80 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#82a687]"
+                  className={`mt-1 w-full min-h-[120px] rounded-xl border border-gray-300/80 bg-white/80 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#82a687] ${playfairRegular.className}`}
                   placeholder="Write a short review (10–500 characters)"
                   minLength={10}
                   maxLength={500}
@@ -376,13 +376,6 @@ export default function ReviewsSection() {
               >
                 {submitting ? "Submitting…" : "Submit Review"}
               </button>
-
-              <p
-                className={`text-xs text-gray-500 ${playfairRegular.className}`}
-              >
-                If you enable moderation, new reviews can be held for approval
-                before appearing publicly.
-              </p>
             </form>
           </div>
         </div>

@@ -1,9 +1,16 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence, Variants } from "framer-motion";
-import type { CarouselItem } from "./map";
+import { useEffect, useState } from "react";
+import type { CarouselItem } from "./homeContent";
 import CloudinaryImage from "./CloudinaryImage";
+import {
+  Carousel as UICarousel,
+  CarouselContent,
+  CarouselItem as UICarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+  type CarouselApi,
+} from "@/components/ui/carousel";
 
 import { images } from "@/app/components/media/images";
 import { videos } from "@/app/components/media/video";
@@ -18,99 +25,56 @@ export default function Carousel({
   items,
   rounded = "rounded-3xl",
 }: CarouselProps) {
-  const [[currentIndex, direction], setCurrentIndex] = useState<
-    [number, number]
-  >([0, 0]);
-  const [itemsPerSlide, setItemsPerSlide] = useState(1);
-  const [containerWidth, setContainerWidth] = useState(0);
-
-  const containerRef = useRef<HTMLDivElement>(null);
+  const [api, setApi] = useState<CarouselApi>();
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [snapCount, setSnapCount] = useState(0);
 
   useEffect(() => {
-    const updateLayout = () => {
-      const width = window.innerWidth;
+    if (!api) return;
 
-      if (width >= 1000) setItemsPerSlide(3);
-      else if (width >= 850) setItemsPerSlide(2);
-      else setItemsPerSlide(1);
-
-      if (containerRef.current)
-        setContainerWidth(containerRef.current.offsetWidth);
+    const onSelect = () => {
+      setCurrentIndex(api.selectedScrollSnap());
+      setSnapCount(api.scrollSnapList().length);
     };
 
-    updateLayout();
-    window.addEventListener("resize", updateLayout);
-    return () => window.removeEventListener("resize", updateLayout);
-  }, []);
+    onSelect();
+    api.on("select", onSelect);
+    api.on("reInit", onSelect);
 
-  const totalSlides = Math.ceil(items.length / itemsPerSlide);
-
-  const prevSlide = () =>
-    setCurrentIndex([(currentIndex - 1 + totalSlides) % totalSlides, -1]);
-  const nextSlide = () =>
-    setCurrentIndex([(currentIndex + 1) % totalSlides, 1]);
-
-  const variants: Variants = {
-    enter: (dir: number) => ({
-      x: dir > 0 ? containerWidth : -containerWidth,
-      transition: {
-        duration: 0.45,
-        ease: [0.0, 0.0, 1.0, 1.0] as [number, number, number, number],
-      },
-    }),
-    center: {
-      x: 0,
-      transition: {
-        duration: 0.45,
-        ease: [0.0, 0.0, 1.0, 1.0] as [number, number, number, number],
-      },
-    },
-    exit: (dir: number) => ({
-      x: dir > 0 ? -containerWidth : containerWidth,
-      transition: {
-        duration: 0.45,
-        ease: [0.0, 0.0, 1.0, 1.0] as [number, number, number, number],
-      },
-    }),
-  };
-
-  const slideItems = items.slice(
-    currentIndex * itemsPerSlide,
-    currentIndex * itemsPerSlide + itemsPerSlide
-  );
+    return () => {
+      api.off("select", onSelect);
+      api.off("reInit", onSelect);
+    };
+  }, [api]);
 
   useEffect(() => {
-    const interval = setInterval(() => nextSlide(), 5000);
+    if (!api) return;
+    const interval = setInterval(() => api.scrollNext(), 5000);
     return () => clearInterval(interval);
-  }, [currentIndex, itemsPerSlide]); // OK (your original behavior)
+  }, [api]);
 
   return (
-    <div className="relative w-full max-w-6xl mx-auto mt-6" ref={containerRef}>
-      <div className={`overflow-hidden ${rounded} w-full`}>
-        <div className="flex justify-center items-center w-full min-h-[350px] px-2 sm:px-4 lg:px-6">
-          <AnimatePresence initial={false} custom={direction}>
-            <motion.div
-              key={currentIndex}
-              className="flex w-full flex-none justify-center gap-4 sm:gap-6 lg:gap-10 will-change-transform transform-gpu"
-              custom={direction}
-              variants={variants}
-              initial="enter"
-              animate="center"
-              exit="exit"
-            >
-              {slideItems.map((item) => (
-                <motion.div
-                  key={item.id}
-                  whileHover={{ scale: 1.02 }}
-                  className="rounded-3xl overflow-hidden bg-white backdrop-blur-sm shadow flex-none"
-                >
+    <div className="relative w-full max-w-6xl mx-auto mt-6">
+      <UICarousel
+        setApi={setApi}
+        opts={{ align: "start", loop: true }}
+        className={`overflow-hidden w-full ${rounded}`}
+      >
+        <div className="px-2 sm:px-4 lg:px-6">
+          <CarouselContent>
+            {items.map((item) => (
+              <UICarouselItem
+                key={item.id}
+                className="basis-full md:basis-1/2 lg:basis-1/3"
+              >
+                <div className="rounded-3xl overflow-hidden bg-white backdrop-blur-sm shadow transition-transform duration-300 hover:scale-[1.02]">
                   {item.type === "image" ? (
                     <CloudinaryImage
                       src={images[item.srcKey]}
                       alt={item.alt || ""}
                       width={800}
                       height={500}
-                      className="max-h-[450px] lg:max-h-[500px] w-auto object-contain"
+                      className="block h-[360px] w-full object-cover object-center sm:h-[420px] lg:h-[500px]"
                       priority={item.id === 1}
                     />
                   ) : (
@@ -119,7 +83,7 @@ export default function Carousel({
                         videos[item.srcKey],
                         "f_auto,q_auto"
                       )}
-                      className="max-h-[450px] lg:max-h-[500px] w-auto object-contain"
+                      className="block h-[360px] w-full object-cover object-center sm:h-[420px] lg:h-[500px]"
                       autoPlay
                       loop
                       muted
@@ -127,46 +91,38 @@ export default function Carousel({
                       preload="metadata"
                     />
                   )}
-                </motion.div>
-              ))}
-            </motion.div>
-          </AnimatePresence>
+                </div>
+              </UICarouselItem>
+            ))}
+          </CarouselContent>
         </div>
 
-        {/* Arrows */}
-        <button
-          onClick={prevSlide}
+        <CarouselPrevious
           className="
             absolute top-1/2 left-3 h-12 w-12 flex items-center justify-center
-            rounded-full text-3xl bg-gray-200 backdrop-blur-md shadow-md
+            rounded-full bg-gray-200 backdrop-blur-md shadow-md border-0
             hover:bg-gray-300 hover:scale-105 transition -translate-y-1/2 cursor-pointer
           "
-        >
-          &#10094;
-        </button>
+        />
 
-        <button
-          onClick={nextSlide}
+        <CarouselNext
           className="
             absolute top-1/2 right-3 h-12 w-12 flex items-center justify-center
-            rounded-full text-3xl bg-gray-200 backdrop-blur-md shadow-md
+            rounded-full bg-gray-200 backdrop-blur-md shadow-md border-0
             hover:bg-gray-300 hover:scale-105 transition -translate-y-1/2 cursor-pointer
           "
-        >
-          &#10095;
-        </button>
-      </div>
+        />
+      </UICarousel>
 
-      {/* Dots */}
       <div className="flex justify-center mt-5 gap-3">
-        {Array.from({ length: totalSlides }).map((_, idx) => (
+        {Array.from({ length: snapCount }).map((_, idx) => (
           <span
             key={idx}
             className={`
               h-2 w-4 rounded-full cursor-pointer transition-all
               ${idx === currentIndex ? "bg-[#2e4c2d] scale-110" : "bg-[#8cb692] opacity-60"}
             `}
-            onClick={() => setCurrentIndex([idx, idx > currentIndex ? 1 : -1])}
+            onClick={() => api?.scrollTo(idx)}
           />
         ))}
       </div>

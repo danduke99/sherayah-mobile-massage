@@ -1,10 +1,16 @@
 import { createClient } from "@supabase/supabase-js";
 
-const url = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
+const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const publishableKey = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
 
-// Server-only client using service role (bypasses RLS).
-// Use ONLY in server routes (e.g., /api/*).
-export const supabaseServer = createClient(url, serviceRoleKey, {
+if (!url) {
+  throw new Error("Missing NEXT_PUBLIC_SUPABASE_URL");
+}
+
+if (!publishableKey) {
+  throw new Error("Missing NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY");
+}
+
+export const supabaseServer = createClient(url, publishableKey, {
   auth: { persistSession: false },
 });

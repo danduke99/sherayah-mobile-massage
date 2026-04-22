@@ -1,12 +1,12 @@
 "use client";
 
 import React, { createContext, useContext, useMemo, useState } from "react";
-import type { Service } from "../map";
+import type { Service } from "@/app/lib/service-types";
 
 export type BookingCartItem = {
   serviceId: string;
   title: string;
-  duration: 60 | 90;
+  duration: number;
   price: number;
 };
 
@@ -23,13 +23,13 @@ type BookingContextType = {
   paymentMethod: PaymentMethod;
   unavailableDates: string[];
 
-  openBooking: (service?: Service, duration?: 60 | 90) => void;
+  openBooking: (service?: Service, duration?: number) => void;
   closeBooking: () => void;
   goToStep: (step: 1 | 2 | 3) => void;
 
-  addService: (service: Service, duration?: 60 | 90) => void;
+  addService: (service: Service, duration?: number) => void;
   removeItem: (index: number) => void;
-  updateItemDuration: (index: number, duration: 60 | 90, service: Service) => void;
+  updateItemDuration: (index: number, duration: number, service: Service) => void;
   clearCart: () => void;
 
   setSelectedDate: (date: string) => void;
@@ -49,7 +49,7 @@ const DEFAULT_UNAVAILABLE_DATES = [
   "2026-04-20",
 ];
 
-function getPriceForDuration(service: Service, duration: 60 | 90) {
+function getPriceForDuration(service: Service, duration: number) {
   return service.options.find((o) => o.duration === duration)?.price ?? 0;
 }
 
@@ -64,7 +64,7 @@ export function BookingProvider({ children }: { children: React.ReactNode }) {
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>("");
   const [unavailableDates] = useState<string[]>(DEFAULT_UNAVAILABLE_DATES);
 
-  function openBooking(service?: Service, duration: 60 | 90 = 60) {
+  function openBooking(service?: Service, duration: number = 60) {
     setIsOpen(true);
     if (service) {
       setItems((prev) => {
@@ -91,7 +91,7 @@ export function BookingProvider({ children }: { children: React.ReactNode }) {
     setStep(nextStep);
   }
 
-  function addService(service: Service, duration: 60 | 90 = 60) {
+  function addService(service: Service, duration: number = 60) {
     setItems((prev) => {
       const alreadyInCart = prev.some((item) => item.serviceId === service.id);
       if (alreadyInCart) return prev;
@@ -112,7 +112,7 @@ export function BookingProvider({ children }: { children: React.ReactNode }) {
     setItems((prev) => prev.filter((_, i) => i !== index));
   }
 
-  function updateItemDuration(index: number, duration: 60 | 90, service: Service) {
+  function updateItemDuration(index: number, duration: number, service: Service) {
     setItems((prev) =>
       prev.map((item, i) =>
         i === index

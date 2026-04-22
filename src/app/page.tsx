@@ -4,11 +4,13 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { cookie, playfairBold, playfairRegular } from "./styles/font/fonts";
-import { services, carouselImages, bgImage } from "./components/map";
+import { carouselImages, bgImage } from "./components/homeContent";
 import Carousel from "./components/Carousel";
 import CloudinaryImage from "./components/CloudinaryImage";
 import { images } from "./components/media/images";
 import ReviewsSection from "./components/reviews/ReviewSection";
+import { useServices } from "./components/services/useServices";
+import { resolveServiceImageSrc } from "./components/services/resolveServiceImageSrc";
 import {
   BookingProvider,
   useBooking,
@@ -19,6 +21,29 @@ const title = "Welcome to Sherayah's";
 const title2 = "Mobile Body Massage";
 const titleLg = "Welcome to Sherayah's Mobile Body Massage";
 
+// ---------------------------------------------------------------------------
+// Skeleton card — matches the real card's dimensions exactly
+// ---------------------------------------------------------------------------
+function ServiceCardSkeleton() {
+  return (
+    <div className="w-full lg:flex-[1_1_30%] lg:self-start">
+      <div className="w-full flex flex-col md:flex-row lg:flex-col rounded-lg bg-white shadow-lg overflow-hidden animate-pulse">
+        {/* Image placeholder */}
+        <div className="w-full h-48 md:w-36 md:h-auto lg:w-full lg:h-52 flex-shrink-0 bg-gray-200" />
+        {/* Text placeholder */}
+        <div className="flex flex-col p-4 w-full gap-3">
+          <div className="h-5 bg-gray-200 rounded w-2/3" />
+          <div className="h-3 bg-gray-100 rounded w-full" />
+          <div className="h-3 bg-gray-100 rounded w-4/5" />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Export
+// ---------------------------------------------------------------------------
 export default function Home() {
   return (
     <BookingProvider>
@@ -34,9 +59,13 @@ function HomeContent() {
   const titleLettersLg = titleLg.split("");
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   const { openBooking } = useBooking();
+  const { services, isLoading, isError } = useServices();
 
   return (
     <main className="flex flex-col overflow-hidden">
+      {/* ------------------------------------------------------------------ */}
+      {/* Hero                                                                */}
+      {/* ------------------------------------------------------------------ */}
       <div className="relative text-center h-96 lg:h-[500px] overflow-hidden flex flex-col items-center justify-center">
         <motion.div
           className="absolute inset-0 bg-cover bg-center scale-100"
@@ -58,11 +87,7 @@ function HomeContent() {
             animate="visible"
             variants={{
               hidden: {},
-              visible: {
-                transition: {
-                  staggerChildren: 0.05,
-                },
-              },
+              visible: { transition: { staggerChildren: 0.05 } },
             }}
           >
             {titleLetters.map((char, index) => (
@@ -85,11 +110,7 @@ function HomeContent() {
             animate="visible"
             variants={{
               hidden: {},
-              visible: {
-                transition: {
-                  staggerChildren: 0.05,
-                },
-              },
+              visible: { transition: { staggerChildren: 0.05 } },
             }}
           >
             {titleLetters2.map((char, index) => (
@@ -112,11 +133,7 @@ function HomeContent() {
             animate="visible"
             variants={{
               hidden: {},
-              visible: {
-                transition: {
-                  staggerChildren: 0.05,
-                },
-              },
+              visible: { transition: { staggerChildren: 0.05 } },
             }}
           >
             {titleLettersLg.map((char, index) => (
@@ -168,6 +185,9 @@ function HomeContent() {
         </div>
       </div>
 
+      {/* ------------------------------------------------------------------ */}
+      {/* Services                                                            */}
+      {/* ------------------------------------------------------------------ */}
       <div className="relative bg-[#bee5d7] flex flex-col items-center justify-center overflow-hidden">
         <CloudinaryImage
           src={images.orchid}
@@ -188,6 +208,7 @@ function HomeContent() {
         <div className="absolute bottom-0 left-0 right-0 h-56 bg-gradient-to-t from-[#8cb692] to-transparent z-20 pointer-events-none" />
 
         <div className="relative z-30 flex flex-col justify-center items-center w-full">
+          {/* Header */}
           <div className="flex flex-col items-center justify-center">
             <svg
               width="75px"
@@ -252,160 +273,180 @@ function HomeContent() {
             <div
               className={`${playfairRegular.className} absolute top-44 text-[18px] text-[#2c3e50] underline`}
             >
-              Click on a service to see more details
+              {isLoading ? "Loading services…" : "Click on a service to see more details"}
             </div>
           </div>
 
+          {/* Error banner */}
+          {isError && !isLoading && (
+            <p className={`${playfairRegular.className} text-sm text-red-600 mb-2`}>
+              Could not load live services — showing cached data.
+            </p>
+          )}
+
+          {/* Cards grid */}
           <div className="mb-6 mx-6 max-w-7xl flex flex-col gap-4 overflow-y-auto px-1 py-1 lg:overflow-visible lg:flex-row lg:flex-wrap lg:gap-x-6 lg:gap-y-6 lg:items-start">
-  {services.map((service, index) => {
-    const isOpen = openIndex === index;
+            {isLoading
+              ? // Show 6 skeletons while loading
+              Array.from({ length: 6 }).map((_, i) => (
+                <ServiceCardSkeleton key={i} />
+              ))
+              : services.map((service, index) => {
+                const isOpen = openIndex === index;
 
-    return (
-      <div
-        key={service.id ?? index}
-        className="w-full lg:flex-[1_1_30%] lg:self-start"
-      >
-        <div
-          role="button"
-          tabIndex={0}
-          onClick={() => setOpenIndex(isOpen ? null : index)}
-          onKeyDown={(e) => {
-            if (e.key === "Enter" || e.key === " ") {
-              e.preventDefault();
-              setOpenIndex(isOpen ? null : index);
-            }
-          }}
-          aria-expanded={isOpen}
-          className={`
-            w-full
-            text-left
-            flex flex-col md:flex-row lg:flex-col
-            rounded-lg bg-white text-surface shadow-lg text-black
-            transition-all duration-300
-            md:hover:shadow-xl
-            focus:outline-none focus:ring-2 focus:ring-black/30
-            cursor-pointer
-            ${isOpen ? "h-auto" : "h-auto md:h-36 lg:h-auto"}
-          `}
-        >
-          {/* Image */}
-          <div
-            className="
-              w-full h-48
-              md:w-36 md:h-auto
-              lg:w-full lg:h-52
-              flex-shrink-0 overflow-hidden
-              rounded-t-lg
-              md:rounded-l-lg md:rounded-tr-none md:rounded-bl-lg
-              lg:rounded-t-lg lg:rounded-bl-none
-            "
-          >
-            <CloudinaryImage
-              src={images[service.imageKey]}
-              alt={service.title}
-              width={600}
-              height={420}
-              className={`w-full h-full transition-transform duration-500 ease-in-out ${
-                service.title === "Chair Massage" ? "object-top" : "object-cover"
-              } ${isOpen ? "scale-105" : "scale-100"}`}
-            />
-          </div>
-
-          {/* Text Content */}
-          <div className="flex flex-col p-4 w-full min-w-0">
-            <div
-              className={`transition-all duration-300 ease-in-out ${
-                !isOpen ? "md:py-4 lg:py-0" : "py-0"
-              }`}
-            >
-              <div className="flex items-start justify-between gap-3">
-                <h3 className={`text-xl font-semibold ${playfairBold.className}`}>
-                  {service.title}
-                </h3>
-
-                <span
-                  className={`flex items-center justify-center transition-transform duration-300 ${
-                    isOpen ? "rotate-180" : ""
-                  }`}
-                >
-                  <svg
-                    className="w-4 h-4 text-gray-500"
-                    fill="none"
-                    stroke="black"
-                    strokeWidth="4"
-                    viewBox="0 0 24 24"
+                return (
+                  <div
+                    key={service.id ?? index}
+                    className="w-full lg:flex-[1_1_30%] lg:self-start"
                   >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M19 9l-7 7-7-7"
-                    />
-                  </svg>
-                </span>
-              </div>
-
-              <p className={`mt-2 text-md text-gray-600 ${playfairRegular.className}`}>
-                {service.description}
-              </p>
-            </div>
-
-            {/* Expandable Details */}
-            <div
-              className={`grid transition-all duration-300 ease-in-out ${
-                isOpen
-                  ? "grid-rows-[1fr] mt-3 opacity-100"
-                  : "grid-rows-[0fr] mt-0 opacity-0"
-              }`}
-            >
-              <div className="overflow-hidden">
-                <div className="rounded-md bg-gray-50 border border-gray-200 pb-3 px-3 pt-1">
-                  <div className={`${cookie.className} text-4xl flex justify-center`}>
-                    Duration and Prices
-                  </div>
-
-                  <div className="space-y-2">
-                    {service.options.map((option, optionIndex) => (
+                    <div
+                      role="button"
+                      tabIndex={0}
+                      onClick={() => setOpenIndex(isOpen ? null : index)}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter" || e.key === " ") {
+                          e.preventDefault();
+                          setOpenIndex(isOpen ? null : index);
+                        }
+                      }}
+                      aria-expanded={isOpen}
+                      className={`
+                          w-full text-left flex flex-col md:flex-row lg:flex-col
+                          rounded-lg bg-white text-surface shadow-lg text-black
+                          transition-all duration-300 md:hover:shadow-xl
+                          focus:outline-none focus:ring-2 focus:ring-black/30
+                          cursor-pointer
+                          ${isOpen ? "h-auto" : "h-auto md:h-36 lg:h-auto"}
+                        `}
+                    >
+                      {/* Image */}
                       <div
-                        key={optionIndex}
-                        className="rounded-md border border-gray-200 bg-white px-3 py-2"
+                        className="
+                            w-full h-48
+                            md:w-36 md:h-auto
+                            lg:w-full lg:h-52
+                            flex-shrink-0 overflow-hidden
+                            rounded-t-lg
+                            md:rounded-l-lg md:rounded-tr-none md:rounded-bl-lg
+                            lg:rounded-t-lg lg:rounded-bl-none
+                          "
                       >
-                        <div className="flex justify-between items-center gap-4 text-sm">
-                          <span className="font-medium text-gray-900">
-                            {option.label}
-                          </span>
+                        <CloudinaryImage
+                          src={resolveServiceImageSrc(service.imageKey)}
+                          alt={service.title}
+                          width={600}
+                          height={420}
+                          className={`w-full h-full transition-transform duration-500 ease-in-out ${service.title === "Chair Massage"
+                              ? "object-top"
+                              : "object-cover"
+                            } ${isOpen ? "scale-105" : "scale-100"}`}
+                        />
+                      </div>
 
-                          <span className="font-semibold text-gray-900 text-right w-16">
-                            ${option.price}
-                          </span>
+                      {/* Text Content */}
+                      <div className="flex flex-col p-4 w-full min-w-0">
+                        <div
+                          className={`transition-all duration-300 ease-in-out ${!isOpen ? "md:py-4 lg:py-0" : "py-0"
+                            }`}
+                        >
+                          <div className="flex items-start justify-between gap-3">
+                            <h3
+                              className={`text-xl font-semibold ${playfairBold.className}`}
+                            >
+                              {service.title}
+                            </h3>
+
+                            <span
+                              className={`flex items-center justify-center transition-transform duration-300 ${isOpen ? "rotate-180" : ""
+                                }`}
+                            >
+                              <svg
+                                className="w-4 h-4 text-gray-500"
+                                fill="none"
+                                stroke="black"
+                                strokeWidth="4"
+                                viewBox="0 0 24 24"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  d="M19 9l-7 7-7-7"
+                                />
+                              </svg>
+                            </span>
+                          </div>
+
+                          <p
+                            className={`mt-2 text-md text-gray-600 ${playfairRegular.className}`}
+                          >
+                            {service.description}
+                          </p>
+                        </div>
+
+                        {/* Expandable Details */}
+                        <div
+                          className={`grid transition-all duration-300 ease-in-out ${isOpen
+                              ? "grid-rows-[1fr] mt-3 opacity-100"
+                              : "grid-rows-[0fr] mt-0 opacity-0"
+                            }`}
+                        >
+                          <div className="overflow-hidden">
+                            <div className="rounded-md bg-gray-50 border border-gray-200 pb-3 px-3 pt-1">
+                              <div
+                                className={`${cookie.className} text-4xl flex justify-center`}
+                              >
+                                Duration and Prices
+                              </div>
+
+                              <div className="space-y-2">
+                                {service.options.map((option, optionIndex) => (
+                                  <div
+                                    key={optionIndex}
+                                    className="rounded-md border border-gray-200 bg-white px-3 py-2"
+                                  >
+                                    <div className="flex justify-between items-center gap-4 text-sm">
+                                      <span
+                                        className={`${playfairRegular.className} text-gray-900`}
+                                      >
+                                        {option.label}
+                                      </span>
+                                      <span
+                                        className={`${playfairRegular.className} text-gray-900 text-right w-16`}
+                                      >
+                                        ${option.price}
+                                      </span>
+                                    </div>
+                                  </div>
+                                ))}
+                              </div>
+
+                              <div className="mt-3">
+                                <button
+                                  type="button"
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    openBooking(service, 60);
+                                  }}
+                                  className={`w-full flex justify-center items-center hover:cursor-pointer bg-[#82a687] hover:shadow-md hover:bg-[#405d3f] rounded-2xl text-white py-2 px-3 transition ${playfairRegular.className}`}
+                                >
+                                  Book this service
+                                </button>
+                              </div>
+                            </div>
+                          </div>
                         </div>
                       </div>
-                    ))}
+                    </div>
                   </div>
-
-                  <div className="mt-3">
-                    <button
-                      type="button"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        openBooking(service, 60);
-                      }}
-                      className={`w-full flex justify-center items-center hover:cursor-pointer bg-[#82a687] hover:shadow-md hover:bg-[#405d3f] rounded-2xl text-white py-2 px-3 transition ${playfairRegular.className}`}
-                    >
-                      Book this service
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
+                );
+              })}
           </div>
         </div>
       </div>
-    );
-  })}
-</div>
-        </div>
-      </div>
 
+      {/* ------------------------------------------------------------------ */}
+      {/* Gallery                                                             */}
+      {/* ------------------------------------------------------------------ */}
       <div className="relative px-4 sm:px-6 lg:px-12 pt-10 pb-14 overflow-hidden bg-white">
         <div className="absolute inset-0 bg-gradient-to-b from-[#bee5d7]/10 via-white to-transparent pointer-events-none" />
 
@@ -438,6 +479,9 @@ function HomeContent() {
         </div>
       </div>
 
+      {/* ------------------------------------------------------------------ */}
+      {/* Who Are We                                                          */}
+      {/* ------------------------------------------------------------------ */}
       <div className="w-full flex flex-col bg-transparent lg:flex-row justify-center items-start relative z-10 px-4 lg:px-0">
         <div className="hidden lg:flex w-full lg:w-[40%] justify-center items-start relative z-10">
           <div className="relative w-full max-w-[520px] h-[520px]">

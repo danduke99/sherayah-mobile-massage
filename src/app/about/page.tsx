@@ -1,20 +1,42 @@
 "use client";
 
-import { cookie, playfairBold, playfairRegular, playfairSemiBold } from "../styles/font/fonts";
-import { services, teamMembers } from "../components/map";
+import {
+  cookie,
+  playfairBold,
+  playfairRegular,
+  playfairSemiBold,
+} from "../styles/font/fonts";
+import { teamMembers } from "../components/teamMembers";
 import CloudinaryImage from "../components/CloudinaryImage";
 import { images } from "../components/media/images";
+import { useServices } from "../components/services/useServices";
+import { resolveServiceImageSrc } from "../components/services/resolveServiceImageSrc";
 import Image from "next/image";
+import Link from "next/link";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
+import { BookingProvider, useBooking } from "@/app/components/booking/BookingContext";
+import BookingDrawer from "../components/booking/BookingDrawer";
 
 export default function About() {
+  return (
+    <BookingProvider>
+      <AboutContent />
+      <BookingDrawer />
+    </BookingProvider>
+  );
+}
+
+function AboutContent() {
+  const { services, isLoading, isError } = useServices();
+  const { openBooking } = useBooking();
+
   return (
     <main className="mx-auto relative bg-white">
       {/* Hero Section */}
       <div className="relative w-full h-40 sm:h-48 lg:h-56 overflow-hidden">
         <CloudinaryImage
-          src={images.aboutMassage} // public_id key in registry
+          src={images.aboutMassage}
           alt="Massage Background"
           width={1920}
           height={600}
@@ -42,7 +64,6 @@ export default function About() {
         opacity-70 z-10 object-cover mt-18 bottom-15 sm:-bottom-1 lg:-bottom-20 xl:bottom-2 -left-10 sm:-left-13 lg:-left-10 xl:-left-20"
             />
 
-            {/* Scroll target wrapper */}
             <ScrollTilt3D>
               <CloudinaryImage
                 src={images.threeD}
@@ -90,8 +111,12 @@ export default function About() {
             <p
               className={`text-base sm:text-xs lg:text-lg xl:text-xl text-left z-30 relative text-[#405d3f] mb-3 ${playfairRegular.className}`}
             >
-              Let <a className={`${playfairBold.className}`}>Sherayah&apos;s Mobile Body Massage</a> be your space to pause, breathe, and reconnect
-              — <a className={`${playfairSemiBold.className}`}>with yourself.</a>&quot;
+              Let{" "}
+              <span className={playfairBold.className}>
+                Sherayah&apos;s Mobile Body Massage
+              </span>{" "}
+              be your space to pause, breathe, and reconnect —{" "}
+              <span className={playfairSemiBold.className}>with yourself.</span>
             </p>
           </div>
         </div>
@@ -107,7 +132,7 @@ export default function About() {
           className="w-full h-full object-cover"
         />
 
-        <div className="absolute inset-0 bg-[#405d3f] opacity-40 mix-blend-multiply z-0"></div>
+        <div className="absolute inset-0 bg-[#405d3f] opacity-40 mix-blend-multiply z-0" />
 
         <div className="overflow-hidden rounded-2xl absolute inset-0 flex flex-col items-center justify-start my-6 mx-auto bg-white w-[90%] sm:w-[90%] md:w-[90%] lg:w-4/5 max-w-[1600px] p-6 sm:p-10">
           <div
@@ -126,10 +151,10 @@ export default function About() {
                 return (
                   <div
                     key={index}
-                    className={`
-                      flex flex-col justify-center items-center w-40 sm:w-48 md:w-56 group
-                      ${isLastOdd ? "col-span-2 lg:col-span-1 lg:justify-self-auto justify-self-center" : ""}
-                    `}
+                    className={`flex flex-col justify-center items-center w-40 sm:w-48 md:w-56 group ${isLastOdd
+                      ? "col-span-2 lg:col-span-1 lg:justify-self-auto justify-self-center"
+                      : ""
+                      }`}
                   >
                     <div className="relative rounded-full overflow-hidden w-24 h-24 sm:w-48 sm:h-48 md:w-56 md:h-56 lg:h-50 lg:w-50">
                       <CloudinaryImage
@@ -148,7 +173,9 @@ export default function About() {
                       >
                         {member.name}
                       </div>
-                      <div className="text-xs sm:text-sm md:text-base text-[#405d3f]">
+                      <div
+                        className={`text-xs sm:text-sm md:text-base text-[#405d3f] ${playfairRegular.className}`}
+                      >
                         {member.role}
                       </div>
                     </div>
@@ -170,40 +197,72 @@ export default function About() {
           </h2>
         </div>
 
-        <div className="max-h-[700px] overflow-y-auto lg:overflow-y-visible lg:max-h-[800px] xl:max-h-[700px] md:mb-5">
-          <div className="grid grid-cols-1 sm:grid-cols-3 md:mb-2">
-            {[0, 1, 2].map((col) => (
-              <div
-                key={col}
-                className="flex flex-col gap-8 justify-center items-center h-full mt-5 sm:mt-3 sm:px-4"
-              >
-                {services.slice(col * 3, col * 3 + 3).map((service, index) => (
-                  <div
-                    key={index}
-                    className="group flex flex-row sm:flex-col lg:flex-row gap-4 items-center justify-center bg-white p-4 rounded-xl transition duration-200 w-full max-w-md sm:h-[22rem] lg:h-[14rem] xl:h-[10rem]"
-                  >
-                    <div className="rounded-full w-20 h-20 sm:w-28 sm:h-28 flex justify-center items-center overflow-hidden shrink-0">
-                      <CloudinaryImage
-                        src={images[service.imageKey]}
-                        alt={service.title}
-                        width={300}
-                        height={300}
-                        className="w-full h-full object-cover rounded-full"
-                      />
-                    </div>
+        {isError && (
+          <div className="text-center text-red-700 mb-4">
+            <p className={playfairRegular.className}>
+              Could not load services right now.
+            </p>
+          </div>
+        )}
 
-                    <div className="flex flex-col justify-start items-start w-full flex-grow overflow-hidden">
-                      <p className="text-lg sm:text-xl font-bold text-[#2e4c2d] underline decoration-[#2e4c2d] group-hover:decoration-[#e7d882]">
-                        {service.title}
-                      </p>
-                      <p className="text-sm sm:text-lg text-black">
-                        {service.description}
-                      </p>
+        <div className="max-h-[700px] overflow-y-auto lg:overflow-y-visible lg:max-h-[800px] xl:max-h-[700px] md:mb-5">
+          {isLoading ? (
+            <div className="flex justify-center items-center py-10">
+              <p className={`${playfairRegular.className} text-[#2c3e50] text-lg`}>
+                Loading services...
+              </p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-3 md:mb-2">
+              {[0, 1, 2].map((col) => (
+                <div
+                  key={col}
+                  className="flex flex-col gap-8 justify-center items-center h-full mt-5 sm:mt-3 sm:px-4"
+                >
+                  {services.slice(col * 3, col * 3 + 3).map((service) => (
+                    <div
+                      key={service.id}
+                      className="group flex flex-row sm:flex-col lg:flex-row gap-4 items-center justify-center bg-white p-4 rounded-xl transition duration-200 w-full max-w-md sm:h-[22rem] lg:h-[14rem] xl:h-[10rem]"
+                    >
+                      <div className="rounded-full w-20 h-20 sm:w-28 sm:h-28 flex justify-center items-center overflow-hidden shrink-0">
+                        <CloudinaryImage
+                          src={resolveServiceImageSrc(service.imageKey)}
+                          alt={service.title}
+                          width={300}
+                          height={300}
+                          className="w-full h-full object-cover rounded-full"
+                        />
+                      </div>
+
+                      <div className="flex flex-col justify-start items-start w-full flex-grow overflow-hidden">
+                        <p
+                          className={`text-lg sm:text-xl text-[#2e4c2d] underline decoration-[#2e4c2d] group-hover:decoration-[#e7d882] ${playfairBold.className}`}
+                        >
+                          {service.title}
+                        </p>
+                        <p
+                          className={`text-sm sm:text-lg text-black ${playfairRegular.className}`}
+                        >
+                          {service.description}
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                ))}
-              </div>
-            ))}
+                  ))}
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+
+        <div className="mt-6 flex justify-center">
+          <div className="mt-6 flex justify-center">
+            <button
+              type="button"
+              onClick={() => openBooking()}
+              className={`rounded-full bg-[#405d3f] px-8 py-3 text-white transition hover:bg-[#2e4c2d] hover:cursor-pointer ${playfairBold.className}`}
+            >
+              Book Now
+            </button>
           </div>
         </div>
       </div>
@@ -214,13 +273,11 @@ export default function About() {
 function ScrollTilt3D({ children }: { children: React.ReactNode }) {
   const ref = useRef<HTMLDivElement>(null);
 
-  // Track scroll progress relative to THIS element
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ["start 90%", "end 20%"], // longer scroll window = bigger effect duration
+    offset: ["start 90%", "end 20%"],
   });
 
-  // Bigger, more obvious effect ranges
   const rotateX = useTransform(scrollYProgress, [0, 1], [28, -28]);
   const rotateY = useTransform(scrollYProgress, [0, 1], [-32, 32]);
   const scale = useTransform(scrollYProgress, [0, 1], [0.7, 1.25]);

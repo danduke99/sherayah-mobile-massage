@@ -12,6 +12,14 @@ function clampRating(n: number) {
   return Math.max(1, Math.min(5, Math.floor(n)));
 }
 
+function asOptionalUuid(v: unknown): string | null {
+  if (typeof v !== "string") return null;
+  const value = v.trim();
+  const uuidRegex =
+    /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+  return uuidRegex.test(value) ? value : null;
+}
+
 export async function POST(req: Request) {
   try {
     const body = (await req.json()) as {
@@ -19,11 +27,13 @@ export async function POST(req: Request) {
       rating?: unknown;
       comment?: unknown;
       service?: unknown;
+      serviceId?: unknown;
     };
 
     const name = isNonEmptyString(body.name) ? body.name.trim() : "";
     const comment = isNonEmptyString(body.comment) ? body.comment.trim() : "";
-    const service = isNonEmptyString(body.service) ? body.service.trim() : null;
+    const serviceId =
+      asOptionalUuid(body.serviceId) ?? asOptionalUuid(body.service);
     const rating = clampRating(Number(body.rating));
 
     if (!name || name.length > 60) {
@@ -44,35 +54,36 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Rating must be between 1 and 5." }, { status: 400 });
     }
 
-    // Insert as unapproved by default (approved=false default)
-    const { data, error } = await supabaseServer
+    // Avoid chaining `.select()` here because it can fail when RLS allows INSERT
+    // but does not allow SELECT on the same rows.
+    const { error } = await supabaseServer
       .from("reviews")
       .insert({
         name,
         rating,
         comment,
-        service,
-        // approved omitted intentionally
-      })
-      .select("id, name, rating, comment, service, approved, created_at")
-      .single();
+        service_id: serviceId,
+        is_approved: true,
+      });
 
-    if (error || !data) {
-      return NextResponse.json({ error: "Unable to submit review." }, { status: 400 });
+    if (error) {
+      console.error("Review submit error:", {
+        message: error.message,
+        code: error.code,
+        details: error.details,
+        hint: error.hint,
+      });
+      const message =
+        error.message ||
+        error.details ||
+        error.hint ||
+        "Unable to submit review.";
+      return NextResponse.json({ error: message }, { status: 400 });
     }
 
     return NextResponse.json(
       {
-        review: {
-          id: data.id,
-          name: data.name,
-          rating: data.rating,
-          comment: data.comment,
-          service: data.service ?? undefined,
-          approved: data.approved,
-          createdAt: data.created_at,
-        },
-        message: "Submitted. Pending approval.",
+        message: "Submitted successfully.",
       },
       { status: 201 }
     );

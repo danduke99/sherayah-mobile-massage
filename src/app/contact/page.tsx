@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
-import { cookie } from "../styles/font/fonts";
+import { cookie, playfairRegular } from "../styles/font/fonts";
 
 export default function Contact() {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
@@ -113,9 +113,9 @@ export default function Contact() {
             type="text"
             required
             placeholder="Name"
-            className="w-full py-2 px-4 bg-[#a5d1ac] text-black rounded-full 
+            className={`w-full py-2 px-4 bg-[#a5d1ac] text-black rounded-full 
               transition-all duration-500 ease-in-out 
-              focus:outline-none focus:ring-2 focus:ring-[#2c3e50] hover:focus:ring-[#e7d882]"
+              focus:outline-none focus:ring-2 focus:ring-[#2c3e50] hover:focus:ring-[#e7d882] ${playfairRegular.className}`}
           />
           <input
             name="email"
@@ -124,9 +124,9 @@ export default function Contact() {
             type="email"
             placeholder="Email"
             required
-            className="w-full py-2 px-4 bg-[#a5d1ac] text-black rounded-full 
+            className={`w-full py-2 px-4 bg-[#a5d1ac] text-black rounded-full 
               transition-all duration-500 ease-in-out 
-              focus:outline-none focus:ring-2 focus:ring-[#2c3e50] hover:focus:ring-[#e7d882]"
+              focus:outline-none focus:ring-2 focus:ring-[#2c3e50] hover:focus:ring-[#e7d882] ${playfairRegular.className}`}
           />
           <textarea
             name="message"
@@ -134,15 +134,15 @@ export default function Contact() {
             onChange={handleChange}
             placeholder="Your Message"
             required
-            className="w-full py-4 px-4 bg-[#a5d1ac] text-black rounded-3xl h-32 
+            className={`w-full py-4 px-4 bg-[#a5d1ac] text-black rounded-3xl h-32 
               resize-none transition-all duration-500 ease-in-out 
-              focus:outline-none focus:ring-2 focus:ring-[#2c3e50] hover:focus:ring-[#e7d882]"
+              focus:outline-none focus:ring-2 focus:ring-[#2c3e50] hover:focus:ring-[#e7d882] ${playfairRegular.className}`}
           />
           <div className="flex justify-center items-center">
             <button
               type="submit"
               disabled={loading}
-              className="bg-[#405d3f] text-white font-semibold px-6 py-2 rounded-full hover:cursor-pointer hover:bg-[#2e4c2d] w-full max-w-xs sm:max-w-sm disabled:opacity-60 disabled:cursor-not-allowed"
+              className={`${playfairRegular.className} bg-[#405d3f] text-white font-semibold px-6 py-2 rounded-full hover:cursor-pointer hover:bg-[#2e4c2d] w-full max-w-xs sm:max-w-sm disabled:opacity-60 disabled:cursor-not-allowed`}
             >
               {loading ? "Sending..." : "Send"}
             </button>
